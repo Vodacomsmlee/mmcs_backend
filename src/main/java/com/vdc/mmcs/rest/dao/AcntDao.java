@@ -21,4 +21,17 @@ public class AcntDao extends AbstractDAO {
     public List<Map<String, Object>> account_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "acnt.account_list", map);
     }
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> account_dept_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "acnt.account_dept_list", map);
+    }
+    public int account_add(Map<String, Object> map) {
+        return (int) insert(sqlSession, "acnt.account_add", map);
+    }
+    public int account_edt(Map<String, Object> map) {
+        return (int) update(sqlSession, "acnt.account_edt", map);
+    }
+    public int account_del(Map<String, Object> map) {
+        return (int) update(sqlSession, "acnt.account_del", map);
+    }
 }

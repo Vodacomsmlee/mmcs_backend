@@ -6,11 +6,25 @@
 
 
     <select id="acnt.account_total_cnt" parameterType="hashmap" resultType="hashmap">
-        call usp_account_total_cnt_s(#{auth_cd}, #{dept_cd});
+        call usp_account_total_cnt_s(#{auth_cd});
     </select>
     <select id="account_list" parameterType="hashmap" resultType="hashmap">
-        call usp_account_list_s(#{auth_cd}, #{dept_cd}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
+        call usp_account_list_s(#{auth_cd}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
+    </select>
+    <select id="account_dept_list" parameterType="hashmap" resultType="hashmap">
+        call usp_account_dept_list_s(#{dept_cd});
     </select>
 
+    <insert id="account_add" parameterType="hashmap">
+        call usp_account_list_i(#{user_id}, #{user_pwd}, #{user_nm}, #{dept_cd}, #{auth_cd, jdbcType=INTEGER}, #{_SESSION_EMP_NO_});
+    </insert>
+
+    <update id="account_edt" parameterType="hashmap">
+        call usp_account_list_u(#{user_id}, #{user_pwd}, #{user_nm}, #{dept_cd}, #{auth_cd, jdbcType=INTEGER}, #{_SESSION_EMP_NO_});
+    </update>
+
+    <update id="account_del" parameterType="hashmap">
+        call usp_account_list_d(#{user_id}, #{_SESSION_EMP_NO_});
+    </update>
 
 </mapper>
