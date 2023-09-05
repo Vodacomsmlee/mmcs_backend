@@ -42,5 +42,26 @@ public class AcntController {
 
         return Map;
     }
+    // account 계정 추가
+    @RequestMapping(value="/account/add")
+    @ResponseBody
+    public Map<String, Object> account_add(CommandMap commandMap) throws Exception {
+        List<Map<String, Object>> Map = acntService.account_add(commandMap.getMap());
+        return page.addMap("rows", Map);
+    }
+    // account 계정 수정
+    @RequestMapping(value="/account/edt")
+    @ResponseBody
+    public Map<String, Object> account_edt(CommandMap commandMap) throws Exception {
+        List<Map<String, Object>> Map = acntService.account_edt(commandMap.getMap());
+        return page.addMap("rows", Map);
+    }
+    // account 계정 삭제
+    @RequestMapping(value="/account/del")
+    @ResponseBody
+    public Map<String, Object> account_del(CommandMap commandMap) throws Exception {
+        List<Map<String, Object>> Map = acntService.account_del(commandMap.getMap());
+        return page.addMap("rows", Map);
+    }
 
 }
