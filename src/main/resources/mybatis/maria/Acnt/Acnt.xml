@@ -7,5 +7,16 @@
         call usp_account_list_s();
     </select>
 
+    <insert id="account_add" parameterType="hashmap">
+        call usp_account_list_i();
+    </insert>
+
+    <update id="account_edt" parameterType="hashmap">
+        call usp_account_list_u();
+    </update>
+
+    <update id="account_del" parameterType="hashmap">
+        call usp_account_list_d();
+    </update>
 
 </mapper>
