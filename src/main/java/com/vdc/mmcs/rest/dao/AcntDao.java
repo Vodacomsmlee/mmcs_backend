@@ -13,6 +13,10 @@ public class AcntDao extends AbstractDAO {
     @Resource(name="sqlSessionMain")
     private SqlSessionTemplate sqlSession;
 
+
+    public Map<String, Object> account_total_cnt(Map<String, Object> map) {
+        return (Map<String, Object>)selectOne(sqlSession, "acnt.account_total_cnt", map);
+    }
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> account_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "acnt.account_list", map);

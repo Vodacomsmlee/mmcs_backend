@@ -14,6 +14,10 @@ public class AcntServiceImpl implements AcntService {
     private AcntDao acntDao;
 
     @Override
+    public Map<String, Object> account_total_cnt(Map<String, Object> map) {
+        return acntDao.account_total_cnt(map);
+    }
+    @Override
     public List<Map<String, Object>> account_list(Map<String, Object> map) {
         return acntDao.account_list(map);
     }

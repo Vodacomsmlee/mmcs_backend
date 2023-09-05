@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +31,16 @@ public class AcntController {
     @RequestMapping(value="/account/list")
     @ResponseBody
     public Map<String, Object> account_list(CommandMap commandMap) throws Exception {
-        List<Map<String, Object>> Map = acntService.account_list(commandMap.getMap());
-        return page.addMap("rows", Map);
+
+        Map<String, Object> TotalCnt = acntService.account_total_cnt(commandMap.getMap());
+        List<Map<String, Object>> ListMap = acntService.account_list(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+
+        Map.put("total", TotalCnt.get("cnt"));
+        Map.put("rows", ListMap);
+
+        return Map;
     }
 
 }
