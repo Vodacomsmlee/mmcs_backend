@@ -15,7 +15,7 @@ public class SessionInterceptor implements HandlerInterceptor {
     //Controller 접근전
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+        // 세선 만료시 401 리턴
         return true;
     }
 
