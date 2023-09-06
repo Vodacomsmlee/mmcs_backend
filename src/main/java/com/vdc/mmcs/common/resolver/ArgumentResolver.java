@@ -59,7 +59,7 @@ public class ArgumentResolver implements HandlerMethodArgumentResolver {
 
         // Session ID Add
         HttpSession session = request.getSession();
-        commandMap.getMap().put("_SESSION_EMP_NO_", session.getAttribute("Emp_No"));
+        commandMap.getMap().put("_SESSION_USER_ID_", session.getAttribute("user_id"));
 
         return commandMap;
     }

@@ -3,8 +3,8 @@
 
 <mapper namespace="login">
 
-    <select id="login" parameterType="hashmap" resultType="hashmap">
-        select 1
+    <select id="account_login" parameterType="hashmap" resultType="hashmap">
+        call usp_account_login_s(#{user_id}, #{user_pwd});
     </select>
 
 
