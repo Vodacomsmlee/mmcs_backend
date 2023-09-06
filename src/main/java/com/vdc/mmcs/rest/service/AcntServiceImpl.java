@@ -26,6 +26,10 @@ public class AcntServiceImpl implements AcntService {
         return acntDao.account_dept_list(map);
     }
     @Override
+    public List<Map<String, Object>> account_info(Map<String, Object> map) {
+        return acntDao.account_info(map);
+    }
+    @Override
     public int account_add(Map<String, Object> map) {
         return acntDao.account_add(map);
     }

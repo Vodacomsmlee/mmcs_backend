@@ -52,8 +52,15 @@ public class AcntController {
         return Map;
     }
 
-
-
+    // account 상세 조회
+    @RequestMapping(value="/account/info")
+    @ResponseBody
+    public Map<String, Object> account_info(CommandMap commandMap) throws Exception {
+        List<Map<String, Object>> ListMap = acntService.account_info(commandMap.getMap());
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+        return Map;
+    }
 
     // account 계정 추가
     @RequestMapping(value="/account/add")

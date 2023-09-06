@@ -8,6 +8,8 @@ public interface AcntService {
     Map<String, Object> account_total_cnt(Map<String, Object> map) throws Exception;
     List<Map<String, Object>> account_list(Map<String, Object> map) throws Exception;
     List<Map<String, Object>> account_dept_list(Map<String, Object> map) throws Exception;
+    List<Map<String, Object>> account_info(Map<String, Object> map) throws Exception;
+
 
     int account_add(Map<String, Object> map) throws Exception;
 
