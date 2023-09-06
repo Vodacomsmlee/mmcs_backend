@@ -49,6 +49,8 @@ public class LoginController {
 
                 success = true;
                 msg = "login ok";
+                Rst.put("rst", LoginRst);
+
             } else {
                 msg = "Duplicate login user";
             }
@@ -56,7 +58,25 @@ public class LoginController {
 
         Rst.put("success", success);
         Rst.put("msg", msg);
-        Rst.put("rst", LoginRst);
+
+        return Rst;
+    }
+
+    @RequestMapping(value="/logout")
+    @ResponseBody
+    public Map<String, Object>  LogOut(HttpSession session, HttpServletRequest request) throws Exception{
+        Map<String, Object> Rst = new HashMap<>();
+        try {
+            if(session.getAttribute("user_id") != null) {
+                webSessionListener.removeSession(request);
+            }
+            Rst.put("success", true);
+            Rst.put("msg", "log out");
+        }catch (Exception e) {
+            Rst.put("success", false);
+            Rst.put("msg", e.getMessage());
+        }
+        // session.invalidate(); //세션 삭제
         return Rst;
     }
 }

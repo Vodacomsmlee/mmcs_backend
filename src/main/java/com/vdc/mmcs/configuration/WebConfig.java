@@ -1,6 +1,7 @@
 package com.vdc.mmcs.configuration;
 
 import com.vdc.mmcs.common.interceptor.LoggerInterceptor;
+import com.vdc.mmcs.common.interceptor.SessionInterceptor;
 import com.vdc.mmcs.common.resolver.ArgumentResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,9 +18,14 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public LoggerInterceptor loggerInterceptor() { return new LoggerInterceptor(); }
 
-
+    @Bean
+    public SessionInterceptor sessionInterceptor() {
+        return new SessionInterceptor();
+    }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(sessionInterceptor())
+                .addPathPatterns("/**");
 
         registry.addInterceptor(loggerInterceptor())
                 .addPathPatterns("/**");
