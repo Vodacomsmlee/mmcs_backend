@@ -7,5 +7,9 @@
         call usp_account_login_s(#{user_id}, #{user_pwd});
     </select>
 
+    <update id="account_last_login" parameterType="hashmap">
+        call usp_account_login_last_u(#{user_id});
+    </update>
+
 
 </mapper>

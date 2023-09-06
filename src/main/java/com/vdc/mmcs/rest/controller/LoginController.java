@@ -31,10 +31,11 @@ public class LoginController {
         Map<String, Object> Rst = new HashMap<>();
         Map<String, Object> LoginRst = loginService.account_login(commandMap.getMap());
 
-        oldsession.invalidate(); //세션 삭제
+//        oldsession.invalidate(); //세션 삭제
 
         boolean success = false;
         String msg = "";
+
 
         if (LoginRst != null && !LoginRst.isEmpty()) {
 
@@ -47,8 +48,11 @@ public class LoginController {
 
                 webSessionListener.setSession(request, URLDecoder.decode(LoginRst.get("user_id").toString(), "UTF-8"));
 
+                loginService.account_last_login(commandMap.getMap());
+
                 success = true;
                 msg = "login ok";
+                Rst.put("token", session.getId());
                 Rst.put("rst", LoginRst);
 
             } else {

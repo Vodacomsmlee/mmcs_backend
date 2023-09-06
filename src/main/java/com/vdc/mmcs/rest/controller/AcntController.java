@@ -27,6 +27,8 @@ public class AcntController {
     @Resource(name="acntService")
     private AcntService acntService;
 
+    /* account */
+
     // account 목록 조회
     @RequestMapping(value="/account/list")
     @ResponseBody
@@ -93,5 +95,59 @@ public class AcntController {
         Map.put("success", rst);
         return Map;
     }
+
+
+    /* dept */
+
+    // 부서 목록
+    @RequestMapping(value="/dept/list")
+    @ResponseBody
+    public Map<String, Object> dept_list(CommandMap commandMap) throws Exception {
+        List<Map<String, Object>> ListMap = acntService.dept_list(commandMap.getMap());
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+        return Map;
+    }
+    // 부서 정보
+    @RequestMapping(value="/dept/info")
+    @ResponseBody
+    public Map<String, Object> dept_info(CommandMap commandMap) throws Exception {
+        List<Map<String, Object>> ListMap = acntService.dept_info(commandMap.getMap());
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+        return Map;
+    }
+    // 부서 추가
+    @RequestMapping(value="/dept/add")
+    @ResponseBody
+    public Map<String, Object> dept_add(CommandMap commandMap) throws Exception {
+        int rst = acntService.dept_add(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("success", rst);
+        return Map;
+
+    }
+    // 부서 수정
+    @RequestMapping(value="/dept/edt")
+    @ResponseBody
+    public Map<String, Object> dept_edt(CommandMap commandMap) throws Exception {
+        int rst = acntService.dept_edt(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("success", rst);
+        return Map;
+    }
+    // 부서 삭제
+    @RequestMapping(value="/dept/del")
+    @ResponseBody
+    public Map<String, Object> dept_del(CommandMap commandMap) throws Exception {
+        int rst = acntService.dept_del(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("success", rst);
+        return Map;
+    }
+
 
 }

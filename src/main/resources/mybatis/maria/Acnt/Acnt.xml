@@ -17,15 +17,36 @@
     </select>
 
     <insert id="account_add" parameterType="hashmap">
-        call usp_account_list_i(#{user_id}, #{user_pwd}, #{user_nm}, #{dept_cd}, #{auth_cd, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+        call usp_account_i(#{user_id}, #{user_pwd}, #{user_nm}, #{dept_cd}, #{auth_cd, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </insert>
 
     <update id="account_edt" parameterType="hashmap">
-        call usp_account_list_u(#{user_id}, #{user_pwd}, #{user_nm}, #{dept_cd}, #{auth_cd, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+        call usp_account_u(#{user_id}, #{user_pwd}, #{pwd_edt_yn}, #{user_nm}, #{dept_cd}, #{auth_cd, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </update>
 
     <update id="account_del" parameterType="hashmap">
-        call usp_account_list_d(#{user_id}, #{_SESSION_USER_ID_});
+        call usp_account_d(#{user_id}, #{_SESSION_USER_ID_});
+    </update>
+
+
+    <!-- dept -->
+    <select id="dept_list" parameterType="hashmap" resultType="hashmap">
+        call usp_dept_list_s();
+    </select>
+    <select id="dept_info" parameterType="hashmap" resultType="hashmap">
+        call usp_dept_info_s(#{dept_cd});
+    </select>
+
+    <insert id="dept_add" parameterType="hashmap">
+        call usp_dept_i(#{dept_nm}, #{high_dept_cd}, #{_SESSION_USER_ID_});
+    </insert>
+
+    <update id="dept_edt" parameterType="hashmap">
+        call usp_dept_u(#{dept_cd}, #{dept_nm}, #{high_dept_cd}, #{_SESSION_USER_ID_});
+    </update>
+
+    <update id="dept_del" parameterType="hashmap">
+        call usp_dept_d(#{dept_cd}, #{_SESSION_USER_ID_});
     </update>
 
 </mapper>
