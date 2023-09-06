@@ -42,26 +42,49 @@ public class AcntController {
 
         return Map;
     }
+    // account 부서별 조회
+    @RequestMapping(value="/account/dept/list")
+    @ResponseBody
+    public Map<String, Object> account_dept_list(CommandMap commandMap) throws Exception {
+        List<Map<String, Object>> ListMap = acntService.account_dept_list(commandMap.getMap());
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+        return Map;
+    }
+
+
+
+
     // account 계정 추가
     @RequestMapping(value="/account/add")
     @ResponseBody
     public Map<String, Object> account_add(CommandMap commandMap) throws Exception {
-        List<Map<String, Object>> Map = acntService.account_add(commandMap.getMap());
-        return page.addMap("rows", Map);
+        int rst = acntService.account_add(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("success", rst);
+        return Map;
+
     }
     // account 계정 수정
     @RequestMapping(value="/account/edt")
     @ResponseBody
     public Map<String, Object> account_edt(CommandMap commandMap) throws Exception {
-        List<Map<String, Object>> Map = acntService.account_edt(commandMap.getMap());
-        return page.addMap("rows", Map);
+        int rst = acntService.account_edt(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("success", rst);
+        return Map;
     }
     // account 계정 삭제
     @RequestMapping(value="/account/del")
     @ResponseBody
     public Map<String, Object> account_del(CommandMap commandMap) throws Exception {
-        List<Map<String, Object>> Map = acntService.account_del(commandMap.getMap());
-        return page.addMap("rows", Map);
+        int rst = acntService.account_del(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("success", rst);
+        return Map;
     }
 
 }

@@ -25,6 +25,6 @@ spring:
 logging:
   config:
     level: INFO
-    path: ./opt/tomcat/latest/logs #/logs
+    path: /opt/tomcat/logs #/logs
     file: mmcs
     errfile: mmcs_err
