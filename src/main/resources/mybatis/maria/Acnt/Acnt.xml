@@ -9,7 +9,7 @@
     <select id="account_list" parameterType="hashmap" resultType="hashmap">
         call usp_account_list_s(#{auth_cd}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
     </select>
-    <select id="acnt.account_search_total_cnt" parameterType="hashmap" resultType="hashmap">
+    <select id="account_search_total_cnt" parameterType="hashmap" resultType="hashmap">
         call usp_account_search_total_cnt(#{srch_text});
     </select>
     <select id="account_search_list" parameterType="hashmap" resultType="hashmap">
