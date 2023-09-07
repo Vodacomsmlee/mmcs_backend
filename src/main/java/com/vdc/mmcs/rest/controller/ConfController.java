@@ -25,7 +25,7 @@ public class ConfController {
     private ReturnMap page;
     @Resource(name="confService")
     private ConfService confService;
-    @RequestMapping(value="/hday/list")
+    @RequestMapping(value="/holiday/list")
     @ResponseBody
     public Map<String, Object> holiday_list(CommandMap commandMap) throws Exception {
         List<Map<String, Object>> ListMap = confService.holiday_list(commandMap.getMap());
@@ -34,7 +34,7 @@ public class ConfController {
         return Map;
     }
 
-    @RequestMapping(value="/hday/add")
+    @RequestMapping(value="/holiday/add")
     @ResponseBody
     public Map<String, Object> holiday_add(CommandMap commandMap) throws Exception {
         int rst = confService.holiday_add(commandMap.getMap());
@@ -45,7 +45,7 @@ public class ConfController {
 
     }
 
-    @RequestMapping(value="/hday/edt")
+    @RequestMapping(value="/holiday/edt")
     @ResponseBody
     public Map<String, Object> holiday_edt(CommandMap commandMap) throws Exception {
         int rst = confService.holiday_edt(commandMap.getMap());
@@ -55,7 +55,7 @@ public class ConfController {
         return Map;
     }
 
-    @RequestMapping(value="/hday/del")
+    @RequestMapping(value="/holiday/del")
     @ResponseBody
     public Map<String, Object> holiday_del(CommandMap commandMap) throws Exception {
         int rst = confService.holiday_del(commandMap.getMap());

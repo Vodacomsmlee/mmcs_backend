@@ -13,7 +13,7 @@
     </insert>
 
     <update id="holiday_edt" parameterType="hashmap">
-        call usp_holiday_u(#{hday_date}, #{hday_nm}, #{repeat_yn}, #{reg_user_id});
+        call usp_holiday_u(#{hday_date}, #{hday_nm}, #{repeat_yn}, #{last_edt_user_id});
     </update>
 
     <delete id="holiday_del" parameterType="hashmap">
