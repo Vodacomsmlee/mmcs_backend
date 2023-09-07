@@ -44,6 +44,21 @@ public class AcntController {
 
         return Map;
     }
+    // account 검색 조회
+    @RequestMapping(value="/account/srch/list")
+    @ResponseBody
+    public Map<String, Object> account_search_list(CommandMap commandMap) throws Exception {
+
+        Map<String, Object> TotalCnt = acntService.account_search_total_cnt(commandMap.getMap());
+        List<Map<String, Object>> ListMap = acntService.account_search_list(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+
+        Map.put("total", TotalCnt.get("cnt"));
+        Map.put("rows", ListMap);
+
+        return Map;
+    }
     // account 부서별 조회
     @RequestMapping(value="/account/dept/list")
     @ResponseBody
@@ -80,6 +95,17 @@ public class AcntController {
     @ResponseBody
     public Map<String, Object> account_edt(CommandMap commandMap) throws Exception {
         int rst = acntService.account_edt(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("success", rst);
+        return Map;
+    }
+
+    // account 계정 부서만 수정
+    @RequestMapping(value="/account/dept/edt")
+    @ResponseBody
+    public Map<String, Object> account_dept_edt(CommandMap commandMap) throws Exception {
+        int rst = acntService.account_dept_edt(commandMap.getMap());
 
         Map<String,Object> Map = new HashMap<>();
         Map.put("success", rst);

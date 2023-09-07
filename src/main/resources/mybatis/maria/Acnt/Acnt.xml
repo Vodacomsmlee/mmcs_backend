@@ -9,6 +9,12 @@
     <select id="account_list" parameterType="hashmap" resultType="hashmap">
         call usp_account_list_s(#{auth_cd}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
     </select>
+    <select id="acnt.account_search_total_cnt" parameterType="hashmap" resultType="hashmap">
+        call usp_account_search_total_cnt(#{srch_text});
+    </select>
+    <select id="account_search_list" parameterType="hashmap" resultType="hashmap">
+        call usp_account_search_list_s(#{srch_text}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
+    </select>
     <select id="account_dept_list" parameterType="hashmap" resultType="hashmap">
         call usp_account_dept_list_s(#{dept_cd});
     </select>
@@ -22,6 +28,10 @@
 
     <update id="account_edt" parameterType="hashmap">
         call usp_account_u(#{user_id}, #{user_pwd}, #{pwd_edt_yn}, #{user_nm}, #{dept_cd}, #{auth_cd, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+    </update>
+
+    <update id="account_dept_edt" parameterType="hashmap">
+        call usp_account_dept_u(#{user_id}, #{dept_cd}, #{_SESSION_USER_ID_});
     </update>
 
     <update id="account_del" parameterType="hashmap">

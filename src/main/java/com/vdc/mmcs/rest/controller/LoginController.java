@@ -36,7 +36,6 @@ public class LoginController {
         boolean success = false;
         String msg = "";
 
-
         if (LoginRst != null && !LoginRst.isEmpty()) {
 
             HttpSession session = request.getSession();
