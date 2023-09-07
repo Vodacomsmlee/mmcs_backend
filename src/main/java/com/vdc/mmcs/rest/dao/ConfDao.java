@@ -16,15 +16,15 @@ public class ConfDao extends AbstractDAO{
 
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> holiday_list(Map<String, Object> map) {
-        return (List<Map<String, Object>>)selectList(sqlSession, "hday.holiday_list", map);
+        return (List<Map<String, Object>>)selectList(sqlSession, "conf.holiday_list", map);
     }
     public int holiday_add(Map<String, Object> map) {
-        return (int) insert(sqlSession, "hday.holiday_add", map);
+        return (int) insert(sqlSession, "conf.holiday_add", map);
     }
     public int holiday_edt(Map<String, Object> map) {
-        return (int) update(sqlSession, "hday.holiday_edt", map);
+        return (int) update(sqlSession, "conf.holiday_edt", map);
     }
     public int holiday_del(Map<String, Object> map) {
-        return (int) update(sqlSession, "hday.holiday_del", map);
+        return (int) update(sqlSession, "conf.holiday_del", map);
     }
 }
