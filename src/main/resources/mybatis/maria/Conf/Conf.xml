@@ -9,11 +9,11 @@
     </select>
 
     <insert id="holiday_add" parameterType="hashmap">
-        call usp_holiday_i(#{hday_date}, #{hday_nm}, #{repeat_yn}, #{reg_user_id});
+        call usp_holiday_i(#{hday_date}, #{hday_nm}, #{repeat_yn}, #{_SESSION_USER_ID_});
     </insert>
 
     <update id="holiday_edt" parameterType="hashmap">
-        call usp_holiday_u(#{hday_date}, #{hday_nm}, #{repeat_yn}, #{last_edt_user_id});
+        call usp_holiday_u(#{hday_date}, #{hday_nm}, #{repeat_yn}, #{_SESSION_USER_ID_});
     </update>
 
     <delete id="holiday_del" parameterType="hashmap">

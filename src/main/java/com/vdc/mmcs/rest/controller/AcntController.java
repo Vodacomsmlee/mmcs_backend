@@ -156,11 +156,12 @@ public class AcntController {
     // 부서 목록
     @RequestMapping(value="/dept/list")
     @ResponseBody
-    public Map<String, Object> dept_list(CommandMap commandMap) throws Exception {
-        List<Map<String, Object>> ListMap = acntService.dept_list(commandMap.getMap());
-        Map<String,Object> Map = new HashMap<>();
-        Map.put("rows", ListMap);
-        return Map;
+    public String dept_list(CommandMap commandMap) throws Exception {
+
+        Map<String, Object> rstMap = acntService.dept_list(commandMap.getMap());
+
+        return rstMap.get("json").toString();
+
     }
     // 부서 정보
     @RequestMapping(value="/dept/info")

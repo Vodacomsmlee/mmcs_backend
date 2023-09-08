@@ -59,7 +59,7 @@ public class AcntServiceImpl implements AcntService {
     /* dept */
 
     @Override
-    public List<Map<String, Object>> dept_list(Map<String, Object> map) {
+    public Map<String, Object> dept_list(Map<String, Object> map) {
         return acntDao.dept_list(map);
     }
     @Override
