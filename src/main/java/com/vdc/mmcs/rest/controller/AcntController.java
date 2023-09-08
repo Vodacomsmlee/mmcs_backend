@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,43 +83,70 @@ public class AcntController {
     // account 계정 추가
     @RequestMapping(value="/account/add")
     @ResponseBody
-    public Map<String, Object> account_add(CommandMap commandMap) throws Exception {
-        int rst = acntService.account_add(commandMap.getMap());
+    public Map<String, Object> account_add(CommandMap commandMap) {
 
         Map<String,Object> Map = new HashMap<>();
-        Map.put("success", rst);
+
+        try {
+            acntService.account_add(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
         return Map;
 
     }
     // account 계정 수정
     @RequestMapping(value="/account/edt")
     @ResponseBody
-    public Map<String, Object> account_edt(CommandMap commandMap) throws Exception {
-        int rst = acntService.account_edt(commandMap.getMap());
+    public Map<String, Object> account_edt(CommandMap commandMap) {
 
         Map<String,Object> Map = new HashMap<>();
-        Map.put("success", rst);
+
+        try {
+            acntService.account_edt(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
+
         return Map;
     }
 
     // account 계정 부서만 수정
     @RequestMapping(value="/account/dept/edt")
     @ResponseBody
-    public Map<String, Object> account_dept_edt(CommandMap commandMap) throws Exception {
-        int rst = acntService.account_dept_edt(commandMap.getMap());
+    public Map<String, Object> account_dept_edt(CommandMap commandMap) {
 
         Map<String,Object> Map = new HashMap<>();
-        Map.put("success", rst);
+
+        try {
+            acntService.account_dept_edt(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
+
         return Map;
     }
     // account 계정 삭제
     @RequestMapping(value="/account/del")
     @ResponseBody
-    public Map<String, Object> account_del(CommandMap commandMap) throws Exception {
-        int rst = acntService.account_del(commandMap.getMap());
+    public Map<String, Object> account_del(CommandMap commandMap) {
 
         Map<String,Object> Map = new HashMap<>();
-        Map.put("success", rst);
+
+        try {
+            acntService.account_del(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
+
         return Map;
     }
 
@@ -146,32 +174,51 @@ public class AcntController {
     // 부서 추가
     @RequestMapping(value="/dept/add")
     @ResponseBody
-    public Map<String, Object> dept_add(CommandMap commandMap) throws Exception {
-        int rst = acntService.dept_add(commandMap.getMap());
+    public Map<String, Object> dept_add(CommandMap commandMap) {
 
         Map<String,Object> Map = new HashMap<>();
-        Map.put("success", rst);
+
+        try {
+            acntService.dept_add(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
         return Map;
 
     }
     // 부서 수정
     @RequestMapping(value="/dept/edt")
     @ResponseBody
-    public Map<String, Object> dept_edt(CommandMap commandMap) throws Exception {
-        int rst = acntService.dept_edt(commandMap.getMap());
+    public Map<String, Object> dept_edt(CommandMap commandMap) {
 
         Map<String,Object> Map = new HashMap<>();
-        Map.put("success", rst);
+
+        try {
+            acntService.dept_edt(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
         return Map;
+
     }
     // 부서 삭제
     @RequestMapping(value="/dept/del")
     @ResponseBody
-    public Map<String, Object> dept_del(CommandMap commandMap) throws Exception {
-        int rst = acntService.dept_del(commandMap.getMap());
+    public Map<String, Object> dept_del(CommandMap commandMap) {
 
         Map<String,Object> Map = new HashMap<>();
-        Map.put("success", rst);
+
+        try {
+            acntService.dept_del(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
         return Map;
     }
 

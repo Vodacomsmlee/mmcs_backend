@@ -20,9 +20,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
 public class ConfController {
-    /** view page return map **/
-    @Resource(name="returnMap")
-    private ReturnMap page;
+
     @Resource(name="confService")
     private ConfService confService;
     @RequestMapping(value="/holiday/list")
@@ -36,32 +34,50 @@ public class ConfController {
 
     @RequestMapping(value="/holiday/add")
     @ResponseBody
-    public Map<String, Object> holiday_add(CommandMap commandMap) throws Exception {
-        int rst = confService.holiday_add(commandMap.getMap());
+    public Map<String, Object> holiday_add(CommandMap commandMap) {
 
         Map<String,Object> Map = new HashMap<>();
-        Map.put("success", rst);
+
+        try {
+            confService.holiday_add(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
         return Map;
 
     }
 
     @RequestMapping(value="/holiday/edt")
     @ResponseBody
-    public Map<String, Object> holiday_edt(CommandMap commandMap) throws Exception {
-        int rst = confService.holiday_edt(commandMap.getMap());
+    public Map<String, Object> holiday_edt(CommandMap commandMap) {
 
         Map<String,Object> Map = new HashMap<>();
-        Map.put("success", rst);
+
+        try {
+            confService.holiday_edt(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
         return Map;
     }
 
     @RequestMapping(value="/holiday/del")
     @ResponseBody
     public Map<String, Object> holiday_del(CommandMap commandMap) throws Exception {
-        int rst = confService.holiday_del(commandMap.getMap());
 
         Map<String,Object> Map = new HashMap<>();
-        Map.put("success", rst);
+
+        try {
+            confService.holiday_del(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
         return Map;
     }
 }
