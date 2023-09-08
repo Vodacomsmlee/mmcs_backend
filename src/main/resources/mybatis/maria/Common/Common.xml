@@ -3,8 +3,8 @@
 
 <mapper namespace="common">
 
-    <select id="get_common" parameterType="hashmap" resultType="hashmap">
-        select 1
+    <select id="montrn_channel_list" parameterType="hashmap" resultType="hashmap">
+        call usp_montrn_channel_s(#{start_date}, #{end_date});
     </select>
 
 
