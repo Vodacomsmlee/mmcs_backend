@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +20,6 @@ import java.util.Map;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
 public class AcntController {
-    /** view page return map **/
-    @Resource(name="returnMap")
-    private ReturnMap page;
 
     @Resource(name="acntService")
     private AcntService acntService;
