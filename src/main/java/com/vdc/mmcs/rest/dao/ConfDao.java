@@ -27,4 +27,64 @@ public class ConfDao extends AbstractDAO{
     public int holiday_del(Map<String, Object> map) {
         return (int) update(sqlSession, "conf.holiday_del", map);
     }
+
+
+    /* conference */
+
+    public Map<String, Object> conference_total_cnt(Map<String, Object> map) {
+        return (Map<String, Object>)selectOne(sqlSession, "conf.conference_total_cnt", map);
+    }
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> conference_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "conf.conference_list", map);
+    }
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> conference_info(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "conf.conference_info", map);
+    }
+    public int conference_add(Map<String, Object> map) {
+        return (int) insert(sqlSession, "conf.conference_add", map);
+    }
+    public int conference_edt(Map<String, Object> map) {
+        return (int) update(sqlSession, "conf.conference_edt", map);
+    }
+    public int conference_del(Map<String, Object> map) {
+        return (int) update(sqlSession, "conf.conference_del", map);
+    }
+
+    /* attendant */
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> attendant_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "conf.attendant_list", map);
+    }
+    public int attendant_add(Map<String, Object> map) {
+        return (int) insert(sqlSession, "conf.attendant_add", map);
+    }
+    public int attendant_autocall_edt(Map<String, Object> map) {
+        return (int) update(sqlSession, "conf.attendant_autocall_edt", map);
+    }
+    public int attendant_pin_edt(Map<String, Object> map) {
+        return (int) update(sqlSession, "conf.attendant_pin_edt", map);
+    }
+    public int attendant_desc_edt(Map<String, Object> map) {
+        return (int) update(sqlSession, "conf.attendant_desc_edt", map);
+    }
+    public int attendant_del(Map<String, Object> map) {
+        return (int) update(sqlSession, "conf.attendant_del", map);
+    }
+
+    /* conference_reserve */
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> reserve_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "conf.reserve_list", map);
+    }
+    public int reserve_add(Map<String, Object> map) {
+        return (int) insert(sqlSession, "conf.reserve_add", map);
+    }
+    public int reserve_edt(Map<String, Object> map) {
+        return (int) update(sqlSession, "conf.reserve_edt", map);
+    }
+    public int reserve_del(Map<String, Object> map) {
+        return (int) update(sqlSession, "conf.reserve_del", map);
+    }
 }

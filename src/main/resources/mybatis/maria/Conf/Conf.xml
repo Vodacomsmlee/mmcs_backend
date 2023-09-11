@@ -20,4 +20,76 @@
         call usp_holiday_d(#{hday_date});
     </delete>
 
+    <!-- conference -->
+    <select id="conference_total_cnt" parameterType="hashmap" resultType="hashmap">
+        call usp_conference_total_cnt_s(#{cfrm_type, jdbcType=INTEGER});
+    </select>
+    <select id="conference_list" parameterType="hashmap" resultType="hashmap">
+       call usp_conference_list_s(#{cfrm_type, jdbcType=INTEGER}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
+    </select>
+    <select id="conference_info" parameterType="hashmap" resultType="hashmap">
+        call usp_conference_info_s(#{cfrm_seq, jdbcType=INTEGER});
+    </select>
+
+    <insert id="conference_add" parameterType="hashmap">
+        call usp_conference_i(#{cfrm_tel_no, #{cfrm_type}, #{cfrm_nm}, #{rec_use_yn, jdbcType=INTEGER}, #{ownr_user_id}
+            , #{auto_call_yn, jdbcType=INTEGER}, #{pin_num}, #{pin_cert_yn, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+    </insert>
+
+    <update id="conference_edt" parameterType="hashmap">
+        call usp_conference_u(#{cfrm_seq, jdbcType=INTEGER}, #{cfrm_tel_no, #{cfrm_type}, #{cfrm_nm}, #{rec_use_yn, jdbcType=INTEGER}, #{ownr_user_id}
+            , #{auto_call_yn, jdbcType=INTEGER}, #{pin_num}, #{pin_cert_yn, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+    </update>
+    <update id="conference_del" parameterType="hashmap">
+        call usp_conference_d(#{cfrm_seq}, #{_SESSION_USER_ID_});
+    </update>
+
+    <!-- attendant -->
+    <select id="attendant_list" parameterType="hashmap" resultType="hashmap">
+        call usp_attendant_list_s(#{cfrm_seq, jdbcType=INTEGER});
+    </select>
+    <insert id="attendant_add" parameterType="hashmap">
+        call usp_attendant_i(#{cfrm_seq, jdbcType=INTEGER}, #{atdt_nm}, #{atdt_tel_no}, #{desc}
+            , #{pin_cert_yn, jdbcType=INTEGER}, #{auto_call_yn, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+    </insert>
+
+    <update id="attendant_autocall_edt" parameterType="hashmap">
+        call usp_attendant_edt_autocall_u(#{seq}, #{auto_call_yn}, #{_SESSION_USER_ID_});
+    </update>
+    <update id="attendant_pin_edt" parameterType="hashmap">
+        call usp_attendant_edt_pin_u(#{seq}, #{pin_cert_yn}, #{_SESSION_USER_ID_});
+    </update>
+    <update id="attendant_desc_edt" parameterType="hashmap">
+        call usp_attendant_edt_desc_u(#{seq}, #{desc}, #{_SESSION_USER_ID_});
+    </update>
+    <update id="attendant_del" parameterType="hashmap">
+        call usp_attendant_d(#{seq}, #{_SESSION_USER_ID_});
+    </update>
+
+    <!-- reserve -->
+    <select id="reserve_list" parameterType="hashmap" resultType="hashmap">
+        call usp_reserve_list_s(#{cfrm_seq, jdbcType=INTEGER});
+    </select>
+    <insert id="reserve_add" parameterType="hashmap">
+        call usp_reserve_i(#{cfrm_seq, jdbcType=INTEGER}, #{rsrv_date}, #{rsrv_time}, #{rsrv_nm}
+            , #{repeat_type, jdbcType=INTEGER}
+            , #{repeat_weekday, jdbcType=INTEGER}
+            , #{hday_ecpt_yn, jdbcType=INTEGER}
+            , #{sat_ecpt_yn, jdbcType=INTEGER}
+            , #{sun_ecpt_yn, jdbcType=INTEGER}
+            , #{_SESSION_USER_ID_});
+    </insert>
+
+    <update id="reserve_edt" parameterType="hashmap">
+        call usp_reserve_u(#{seq}, #{rsrv_nm}
+            , #{repeat_type, jdbcType=INTEGER}
+            , #{repeat_weekday, jdbcType=INTEGER}
+            , #{hday_ecpt_yn, jdbcType=INTEGER}
+            , #{sat_ecpt_yn, jdbcType=INTEGER}
+            , #{sun_ecpt_yn, jdbcType=INTEGER}
+            , #{_SESSION_USER_ID_});
+    </update>
+    <update id="reserve_del" parameterType="hashmap">
+        call usp_reserve_d(#{seq}, #{_SESSION_USER_ID_});
+    </update>
 </mapper>

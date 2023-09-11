@@ -3,7 +3,7 @@
 
 <mapper namespace="acnt">
 
-    <select id="acnt.account_total_cnt" parameterType="hashmap" resultType="hashmap">
+    <select id="account_total_cnt" parameterType="hashmap" resultType="hashmap">
         call usp_account_total_cnt_s(#{auth_cd});
     </select>
     <select id="account_list" parameterType="hashmap" resultType="hashmap">
