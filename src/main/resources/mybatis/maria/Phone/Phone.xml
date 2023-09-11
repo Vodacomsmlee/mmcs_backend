@@ -23,4 +23,21 @@
         call usp_group_d(#{grp_seq, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </update>
 
+    <!-- phone -->
+    <select id="phone_list" parameterType="hashmap" resultType="hashmap">
+        call usp_phone_list_s(#{tel_type}, #{_SESSION_USER_ID_});
+    </select>
+
+    <insert id="phone_add" parameterType="hashmap">
+        call usp_phone_i(#{grp_seq}, #{tel_type}, #{tel_no}, #{disp_nm}, #{desc}, #{extrnl_yn}, #{extrnl_acces_cd}, #{_SESSION_USER_ID_});
+    </insert>
+
+    <update id="phone_edt" parameterType="hashmap">
+        call usp_phone_u(#{seq, jdbcType=INTEGER}, #{tel_no}, #{disp_nm}, #{desc}, #{extrnl_yn}, #{extrnl_acces_cd}, #{_SESSION_USER_ID_});
+    </update>
+
+    <update id="phone_del" parameterType="hashmap">
+        call usp_phone_d(#{seq, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+    </update>
+
 </mapper>

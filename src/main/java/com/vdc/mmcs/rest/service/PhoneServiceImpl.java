@@ -35,4 +35,25 @@ public class PhoneServiceImpl implements PhoneService {
     public int group_del(Map<String, Object> map) {
         return phoneDao.group_del(map);
     }
+
+    /* phone */
+
+    @Override
+    public List<Map<String, Object>> phone_list(Map<String, Object> map) {
+        return phoneDao.phone_list(map);
+    }
+    @Override
+    public int phone_add(Map<String, Object> map) {
+        return phoneDao.phone_add(map);
+    }
+    @Override
+    public int phone_edt(Map<String, Object> map) {
+        return phoneDao.phone_edt(map);
+    }
+    @Override
+    public int phone_del(Map<String, Object> map) {
+        return phoneDao.phone_del(map);
+    }
 }
+
+

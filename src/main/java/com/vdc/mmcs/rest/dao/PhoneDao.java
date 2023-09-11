@@ -13,7 +13,7 @@ public class PhoneDao extends AbstractDAO {
     @Resource(name="sqlSessionMain")
     private SqlSessionTemplate sqlSession;
 
-    /* dept */
+    /* group */
 
     public Map<String, Object> group_list(Map<String, Object> map) {
         return (Map<String, Object>)selectOne(sqlSession, "phone.group_list", map);
@@ -30,5 +30,20 @@ public class PhoneDao extends AbstractDAO {
     }
     public int group_del(Map<String, Object> map) {
         return (int) update(sqlSession, "phone.group_del", map);
+    }
+
+    /* phone */
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> phone_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "phone.phone_list", map);
+    }
+    public int phone_add(Map<String, Object> map) {
+        return (int) insert(sqlSession, "phone.phone_add", map);
+    }
+    public int phone_edt(Map<String, Object> map) {
+        return (int) update(sqlSession, "phone.phone_edt", map);
+    }
+    public int phone_del(Map<String, Object> map) {
+        return (int) update(sqlSession, "phone.phone_del", map);
     }
 }

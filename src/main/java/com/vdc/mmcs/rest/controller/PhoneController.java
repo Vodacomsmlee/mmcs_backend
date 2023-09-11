@@ -94,4 +94,63 @@ public class PhoneController {
     }
 
     /* 전화번호 */
+    // 전화번호 목록
+    @RequestMapping(value="/phone/list")
+    @ResponseBody
+    public Map<String, Object> phone_list(CommandMap commandMap) throws Exception {
+        List<Map<String, Object>> ListMap = phoneService.phone_list(commandMap.getMap());
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+        return Map;
+    }
+
+    // 전화번호 추가
+    @RequestMapping(value="/phone/add")
+    @ResponseBody
+    public Map<String, Object> phone_add(CommandMap commandMap) {
+
+        Map<String,Object> Map = new HashMap<>();
+
+        try {
+            phoneService.phone_add(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
+        return Map;
+
+    }
+    // 전화번호 수정
+    @RequestMapping(value="/phone/edt")
+    @ResponseBody
+    public Map<String, Object> phone_edt(CommandMap commandMap) {
+
+        Map<String,Object> Map = new HashMap<>();
+
+        try {
+            phoneService.phone_edt(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
+        return Map;
+    }
+    // 전화번호 삭제
+    @RequestMapping(value="/phone/del")
+    @ResponseBody
+    public Map<String, Object> phone_del(CommandMap commandMap) {
+
+        Map<String,Object> Map = new HashMap<>();
+
+        try {
+            phoneService.phone_del(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
+        return Map;
+    }
 }
