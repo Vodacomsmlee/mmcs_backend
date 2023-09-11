@@ -1,11 +1,9 @@
 package com.vdc.mmcs.rest.service;
 
-import com.vdc.mmcs.rest.dao.AcntDao;
 import com.vdc.mmcs.rest.dao.LoginDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Map;
 
 @Service("loginService")

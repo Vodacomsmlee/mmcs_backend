@@ -2,7 +2,6 @@ package com.vdc.mmcs.rest.controller;
 
 
 import com.vdc.mmcs.common.resolver.CommandMap;
-import com.vdc.mmcs.common.resolver.ReturnMap;
 import com.vdc.mmcs.rest.service.PhoneService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,7 +23,7 @@ public class PhoneController {
     private PhoneService phoneService;
 
     /* group */
-    // 부서 목록
+    // 그룹 목록
     @RequestMapping(value="/group/list")
     @ResponseBody
     public String group_list(CommandMap commandMap) throws Exception {
@@ -34,7 +33,7 @@ public class PhoneController {
         return rstMap.get("json").toString();
 
     }
-    // 부서 정보
+    // 그룹 정보
     @RequestMapping(value="/group/info")
     @ResponseBody
     public Map<String, Object> group_info(CommandMap commandMap) throws Exception {
@@ -43,7 +42,7 @@ public class PhoneController {
         Map.put("rows", ListMap);
         return Map;
     }
-    // 부서 추가
+    // 그룹 추가
     @RequestMapping(value="/group/add")
     @ResponseBody
     public Map<String, Object> dept_add(CommandMap commandMap) {
@@ -60,7 +59,7 @@ public class PhoneController {
         return Map;
 
     }
-    // 부서 수정
+    // 그룹 수정
     @RequestMapping(value="/group/edt")
     @ResponseBody
     public Map<String, Object> group_edt(CommandMap commandMap) {
@@ -77,7 +76,7 @@ public class PhoneController {
         return Map;
 
     }
-    // 부서 삭제
+    // 그룹 삭제
     @RequestMapping(value="/group/del")
     @ResponseBody
     public Map<String, Object> group_del(CommandMap commandMap) {
@@ -93,4 +92,6 @@ public class PhoneController {
         }
         return Map;
     }
+
+    /* 전화번호 */
 }

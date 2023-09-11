@@ -34,7 +34,7 @@ public class Schedule {
     private TaskDao taskDao;
 
     @Scheduled(fixedDelay = 1000 * 60 * 5) // 1000 * 60 * 5 5min
-    public void Channel() throws Exception {
+    public void Channel() {
 
         Gson gson = new Gson();
 

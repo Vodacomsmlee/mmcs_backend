@@ -27,11 +27,9 @@ public class LoginController {
 
     @RequestMapping(value = "/login/proc")
     @ResponseBody
-    public Map<String, Object> LoginCheck(CommandMap commandMap, HttpSession oldsession, HttpServletRequest request) throws Exception {
+    public Map<String, Object> LoginCheck(CommandMap commandMap, HttpServletRequest request) throws Exception {
         Map<String, Object> Rst = new HashMap<>();
         Map<String, Object> LoginRst = loginService.account_login(commandMap.getMap());
-
-//        oldsession.invalidate(); //세션 삭제
 
         boolean success = false;
         String msg = "";
@@ -67,7 +65,7 @@ public class LoginController {
 
     @RequestMapping(value="/logout")
     @ResponseBody
-    public Map<String, Object>  LogOut(HttpSession session, HttpServletRequest request) throws Exception{
+    public Map<String, Object>  LogOut(HttpSession session, HttpServletRequest request) {
         Map<String, Object> Rst = new HashMap<>();
         try {
             if(session.getAttribute("user_id") != null) {
@@ -79,7 +77,7 @@ public class LoginController {
             Rst.put("success", false);
             Rst.put("msg", e.getMessage());
         }
-        // session.invalidate(); //세션 삭제
+
         return Rst;
     }
 }

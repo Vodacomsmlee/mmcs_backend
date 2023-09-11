@@ -1,6 +1,5 @@
 package com.vdc.mmcs.rest.service;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 

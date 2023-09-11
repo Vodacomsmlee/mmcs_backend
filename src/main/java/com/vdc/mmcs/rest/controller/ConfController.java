@@ -2,7 +2,6 @@ package com.vdc.mmcs.rest.controller;
 
 
 import com.vdc.mmcs.common.resolver.CommandMap;
-import com.vdc.mmcs.common.resolver.ReturnMap;
 import com.vdc.mmcs.rest.service.ConfService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -67,7 +66,7 @@ public class ConfController {
 
     @RequestMapping(value="/holiday/del")
     @ResponseBody
-    public Map<String, Object> holiday_del(CommandMap commandMap) throws Exception {
+    public Map<String, Object> holiday_del(CommandMap commandMap) {
 
         Map<String,Object> Map = new HashMap<>();
 
