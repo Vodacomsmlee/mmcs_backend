@@ -37,6 +37,15 @@ public class PhoneDao extends AbstractDAO {
     public List<Map<String, Object>> phone_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "phone.phone_list", map);
     }
+    public Map<String, Object> phone_total_cnt(Map<String, Object> map) {
+        return (Map<String, Object>)selectOne(sqlSession, "phone.phone_total_cnt", map);
+    }
+    public Map<String, Object> phone_search_total_cnt(Map<String, Object> map) {
+        return (Map<String, Object>)selectOne(sqlSession, "phone.phone_search_total_cnt", map);
+    }
+    public List<Map<String, Object>> phone_search_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "phone.phone_search_list", map);
+    }
     public int phone_add(Map<String, Object> map) {
         return (int) insert(sqlSession, "phone.phone_add", map);
     }
@@ -46,4 +55,6 @@ public class PhoneDao extends AbstractDAO {
     public int phone_del(Map<String, Object> map) {
         return (int) update(sqlSession, "phone.phone_del", map);
     }
+
+
 }

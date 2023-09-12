@@ -43,6 +43,18 @@ public class PhoneServiceImpl implements PhoneService {
         return phoneDao.phone_list(map);
     }
     @Override
+    public Map<String, Object> phone_total_cnt(Map<String, Object> map) {
+        return phoneDao.phone_total_cnt(map);
+    }
+    @Override
+    public Map<String, Object> phone_search_total_cnt(Map<String, Object> map) {
+        return phoneDao.phone_search_total_cnt(map);
+    }
+    @Override
+    public List<Map<String, Object>> phone_search_list(Map<String, Object> map) {
+        return phoneDao.phone_search_list(map);
+    }
+    @Override
     public int phone_add(Map<String, Object> map) {
         return phoneDao.phone_add(map);
     }

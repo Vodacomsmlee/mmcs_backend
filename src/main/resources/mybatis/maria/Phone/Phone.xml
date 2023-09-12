@@ -25,7 +25,15 @@
 
     <!-- phone -->
     <select id="phone_list" parameterType="hashmap" resultType="hashmap">
-        call usp_phone_list_s(#{tel_type}, #{_SESSION_USER_ID_});
+        call usp_phone_list_s(#{tel_type}, #{_SESSION_USER_ID_}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
+    </select>
+
+    <select id="phone_search_total_cnt" parameterType="hashmap" resultType="hashmap">
+        call usp_phone_search_total_cnt(#{srch_text});
+    </select>
+
+    <select id="phone_search_list" parameterType="hashmap" resultType="hashmap">
+        call usp_phone_search_list_s(#{srch_text}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
     </select>
 
     <insert id="phone_add" parameterType="hashmap">

@@ -14,9 +14,13 @@ public interface PhoneService {
 
     /* phone */
     List<Map<String, Object>> phone_list(Map<String, Object> map) throws Exception;
+    Map<String, Object> phone_total_cnt(Map<String, Object> map) throws Exception;
+    Map<String, Object> phone_search_total_cnt(Map<String, Object> map) throws Exception;
+    List<Map<String, Object>> phone_search_list(Map<String, Object> map) throws Exception;
     int phone_add(Map<String, Object> map) throws Exception;
     int phone_edt(Map<String, Object> map) throws Exception;
     int phone_del(Map<String, Object> map) throws Exception;
+
 
 
 }

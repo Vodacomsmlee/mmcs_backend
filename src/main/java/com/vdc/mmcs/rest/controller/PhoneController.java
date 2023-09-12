@@ -98,9 +98,30 @@ public class PhoneController {
     @RequestMapping(value="/phone/list")
     @ResponseBody
     public Map<String, Object> phone_list(CommandMap commandMap) throws Exception {
+
+        Map<String, Object> TotalCnt = phoneService.phone_total_cnt(commandMap.getMap());
         List<Map<String, Object>> ListMap = phoneService.phone_list(commandMap.getMap());
+
         Map<String,Object> Map = new HashMap<>();
+
+        Map.put("total", TotalCnt.get("cnt"));
         Map.put("rows", ListMap);
+        return Map;
+    }
+
+    // 전화번호 검색 조회
+    @RequestMapping(value="/phone/srch/list")
+    @ResponseBody
+    public Map<String, Object> phone_search_list(CommandMap commandMap) throws Exception {
+
+        Map<String, Object> TotalCnt = phoneService.phone_search_total_cnt(commandMap.getMap());
+        List<Map<String, Object>> ListMap = phoneService.phone_search_list(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+
+        Map.put("total", TotalCnt.get("cnt"));
+        Map.put("rows", ListMap);
+
         return Map;
     }
 
