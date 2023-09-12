@@ -33,7 +33,7 @@ public class Schedule {
     @Resource(name="taskDao")
     private TaskDao taskDao;
 
-    @Scheduled(fixedDelay = 1000 * 60 * 5) // 1000 * 60 * 5 5min
+    @Scheduled(cron = "0 0/5 * * * *", zone = "Asia/Seoul") // fixedDelay = 1000 * 60 * 5
     public void Channel() {
 
         Gson gson = new Gson();
