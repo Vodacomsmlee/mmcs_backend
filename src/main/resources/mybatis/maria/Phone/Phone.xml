@@ -5,10 +5,10 @@
 
     <!-- group -->
     <select id="group_list" parameterType="hashmap" resultType="hashmap">
-        call usp_group_list_s(#{grp_type, jdbcType=INTEGER});
+        call usp_group_list_s(#{grp_type, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </select>
     <select id="group_info" parameterType="hashmap" resultType="hashmap">
-        call usp_group_info_s(#{grp_seq, jdbcType=INTEGER});
+        call usp_group_info_s(#{grp_seq, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </select>
 
     <insert id="group_add" parameterType="hashmap">
