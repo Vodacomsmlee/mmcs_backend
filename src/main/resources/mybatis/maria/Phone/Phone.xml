@@ -33,11 +33,11 @@
     </select>
 
     <select id="phone_search_total_cnt" parameterType="hashmap" resultType="hashmap">
-        call usp_phone_search_total_cnt(#{srch_text});
+        call usp_phone_search_total_cnt(#{srch_text}, #{tel_type}, #{_SESSION_USER_ID_});
     </select>
 
     <select id="phone_search_list" parameterType="hashmap" resultType="hashmap">
-        call usp_phone_search_list_s(#{srch_text}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
+        call usp_phone_search_list_s(#{srch_text}, #{tel_type}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </select>
 
     <insert id="phone_add" parameterType="hashmap">
@@ -49,7 +49,7 @@
     </update>
 
     <update id="phone_del" parameterType="hashmap">
-        call usp_phone_d(#{seq, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+        call usp_phone_d(#{seq}, #{_SESSION_USER_ID_});
     </update>
 
 </mapper>
