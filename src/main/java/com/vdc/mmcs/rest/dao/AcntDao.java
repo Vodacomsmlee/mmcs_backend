@@ -18,22 +18,22 @@ public class AcntDao extends AbstractDAO {
     public Map<String, Object> account_total_cnt(Map<String, Object> map) {
         return (Map<String, Object>)selectOne(sqlSession, "acnt.account_total_cnt", map);
     }
-    @SuppressWarnings("unchecked")
+
     public List<Map<String, Object>> account_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "acnt.account_list", map);
     }
     public Map<String, Object> account_search_total_cnt(Map<String, Object> map) {
         return (Map<String, Object>)selectOne(sqlSession, "acnt.account_search_total_cnt", map);
     }
-    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> account_search_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "acnt.account_search_list", map);
     }
-    @SuppressWarnings("unchecked")
+    public Map<String, Object> account_dept_total_cnt(Map<String, Object> map) {
+        return (Map<String, Object>)selectOne(sqlSession, "acnt.account_dept_total_cnt", map);
+    }
     public List<Map<String, Object>> account_dept_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "acnt.account_dept_list", map);
     }
-    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> account_info(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "acnt.account_info", map);
     }
@@ -55,7 +55,6 @@ public class AcntDao extends AbstractDAO {
     public Map<String, Object> dept_list(Map<String, Object> map) {
         return (Map<String, Object>)selectOne(sqlSession, "acnt.dept_list", map);
     }
-    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> dept_info(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "acnt.dept_info", map);
     }

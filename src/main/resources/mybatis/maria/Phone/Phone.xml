@@ -20,7 +20,7 @@
     </update>
 
     <update id="group_del" parameterType="hashmap">
-        call usp_group_d(#{grp_seq, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+        call usp_group_d(#{grp_seq}, #{_SESSION_USER_ID_});
     </update>
 
     <!-- phone -->

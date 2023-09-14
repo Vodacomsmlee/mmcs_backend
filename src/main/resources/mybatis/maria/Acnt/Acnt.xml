@@ -15,8 +15,12 @@
     <select id="account_search_list" parameterType="hashmap" resultType="hashmap">
         call usp_account_search_list_s(#{srch_text}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
     </select>
+
+    <select id="account_dept_total_cnt" parameterType="hashmap" resultType="hashmap">
+        call usp_account_dept_total_cnt_s(#{dept_cd});
+    </select>
     <select id="account_dept_list" parameterType="hashmap" resultType="hashmap">
-        call usp_account_dept_list_s(#{dept_cd});
+        call usp_account_dept_list_s(#{dept_cd}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
     </select>
     <select id="account_info" parameterType="hashmap" resultType="hashmap">
         call usp_account_info_s(#{user_id});
