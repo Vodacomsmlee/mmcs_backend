@@ -44,6 +44,7 @@
         call usp_conference_d(#{cfrm_seq}, #{_SESSION_USER_ID_});
     </update>
 
+
     <!-- attendant -->
     <select id="attendant_list" parameterType="hashmap" resultType="hashmap">
         call usp_attendant_list_s(#{cfrm_seq, jdbcType=INTEGER});
@@ -92,4 +93,10 @@
     <update id="reserve_del" parameterType="hashmap">
         call usp_reserve_d(#{seq}, #{_SESSION_USER_ID_});
     </update>
+
+    <update id="reserve_pause" parameterType="hashmap">
+        call usp_reserve_pause_u(#{cfrm_seq}, #{rsrv_run_stat, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+    </update>
+
+
 </mapper>
