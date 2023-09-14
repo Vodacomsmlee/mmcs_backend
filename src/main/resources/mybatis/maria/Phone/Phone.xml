@@ -41,7 +41,7 @@
     </select>
 
     <insert id="phone_add" parameterType="hashmap">
-        call usp_phone_i(#{grp_seq}, #{tel_type}, #{tel_no}, #{disp_nm}, #{desc}, #{extrnl_yn}, #{extrnl_acces_cd}, #{_SESSION_USER_ID_});
+        call usp_phone_i(#{grp_seq, jdbcType=INTEGER}, #{tel_type}, #{tel_no}, #{disp_nm}, #{desc}, #{extrnl_yn}, #{extrnl_acces_cd}, #{_SESSION_USER_ID_});
     </insert>
 
     <update id="phone_edt" parameterType="hashmap">
@@ -50,6 +50,14 @@
 
     <update id="phone_del" parameterType="hashmap">
         call usp_phone_d(#{seq}, #{_SESSION_USER_ID_});
+    </update>
+
+    <select id="phone_group_list" parameterType="hashmap" resultType="hashmap">
+        call usp_phone_group_list_s(#{grp_seq, jdbcType=INTEGER}, #{tel_type}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+    </select>
+
+    <update id="phone_group_edt" parameterType="hashmap">
+        call usp_phone_group_u(#{seq}, #{grp_seq, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </update>
 
 </mapper>

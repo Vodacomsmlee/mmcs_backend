@@ -66,6 +66,15 @@ public class PhoneServiceImpl implements PhoneService {
     public int phone_del(Map<String, Object> map) {
         return phoneDao.phone_del(map);
     }
+
+    @Override
+    public List<Map<String, Object>> phone_group_list(Map<String, Object> map) {
+        return phoneDao.phone_group_list(map);
+    }
+    @Override
+    public int phone_group_edt(Map<String, Object> map) {
+        return phoneDao.phone_group_edt(map);
+    }
 }
 
 

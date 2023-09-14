@@ -95,7 +95,7 @@ public class PhoneController {
 
     /* 전화번호 */
     // 전화번호 목록
-    @RequestMapping(value="/phone/list")
+    @RequestMapping(value="/phone_book/list")
     @ResponseBody
     public Map<String, Object> phone_list(CommandMap commandMap) throws Exception {
 
@@ -110,7 +110,7 @@ public class PhoneController {
     }
 
     // 전화번호 검색 조회
-    @RequestMapping(value="/phone/srch/list")
+    @RequestMapping(value="/phone_book/srch/list")
     @ResponseBody
     public Map<String, Object> phone_search_list(CommandMap commandMap) throws Exception {
 
@@ -126,7 +126,7 @@ public class PhoneController {
     }
 
     // 전화번호 추가
-    @RequestMapping(value="/phone/add")
+    @RequestMapping(value="/phone_book/add")
     @ResponseBody
     public Map<String, Object> phone_add(CommandMap commandMap) {
 
@@ -143,7 +143,7 @@ public class PhoneController {
 
     }
     // 전화번호 수정
-    @RequestMapping(value="/phone/edt")
+    @RequestMapping(value="/phone_book/edt")
     @ResponseBody
     public Map<String, Object> phone_edt(CommandMap commandMap) {
 
@@ -159,7 +159,7 @@ public class PhoneController {
         return Map;
     }
     // 전화번호 삭제
-    @RequestMapping(value="/phone/del")
+    @RequestMapping(value="/phone_book/del")
     @ResponseBody
     public Map<String, Object> phone_del(CommandMap commandMap) {
 
@@ -174,4 +174,33 @@ public class PhoneController {
         }
         return Map;
     }
+
+    // 그룹별 전화번호 목록 조회
+    @RequestMapping(value="/phone_book/group/list")
+    @ResponseBody
+    public Map<String, Object> phone_group_list(CommandMap commandMap) throws Exception {
+        List<Map<String, Object>> ListMap = phoneService.phone_group_list(commandMap.getMap());
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+        return Map;
+    }
+
+    // 전화번호 그룹만 수정
+    @RequestMapping(value="/phone_book/group/edt")
+    @ResponseBody
+    public Map<String, Object> phone_group_edt(CommandMap commandMap) {
+
+        Map<String,Object> Map = new HashMap<>();
+
+        try {
+            phoneService.phone_group_edt(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
+
+        return Map;
+    }
+
 }

@@ -21,6 +21,6 @@ public interface PhoneService {
     int phone_edt(Map<String, Object> map) throws Exception;
     int phone_del(Map<String, Object> map) throws Exception;
 
-
-
+    List<Map<String, Object>> phone_group_list(Map<String, Object> map) throws Exception;
+    int phone_group_edt(Map<String, Object> map) throws Exception;
 }

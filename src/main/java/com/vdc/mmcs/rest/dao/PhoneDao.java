@@ -56,5 +56,11 @@ public class PhoneDao extends AbstractDAO {
         return (int) update(sqlSession, "phone.phone_del", map);
     }
 
-
+    @SuppressWarnings("unchecked")
+    public List<Map<String, Object>> phone_group_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "phone.phone_group_list", map);
+    }
+    public int phone_group_edt(Map<String, Object> map) {
+        return (int) update(sqlSession, "phone.phone_group_edt", map);
+    }
 }
