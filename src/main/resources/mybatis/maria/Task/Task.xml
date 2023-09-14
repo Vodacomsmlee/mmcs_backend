@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="task">
+
+    <select id="channel" parameterType="hashmap" resultType="hashmap">
+        call usp_task_channel_i(#{row_count, jdbcType=INTEGER});
+    </select>
+    <select id="conference_reserve" parameterType="hashmap" resultType="hashmap">
+        call usp_task_conference_reserve_s(#{now});
+    </select>
+    <select id="conference_reserve_attendant" parameterType="hashmap" resultType="hashmap">
+        call usp_task_conference_reserve_attendant_s(#{cfrm_seq, jdbcType=INTEGER});
+    </select>
+    <update id="conference_reserve_next_dt" parameterType="hashmap">
+        call usp_task_conference_reserve_u(#{seq, jdbcType=INTEGER});
+    </update>
+
+
+
+</mapper>

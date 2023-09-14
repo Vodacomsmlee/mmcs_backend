@@ -59,8 +59,13 @@ public class AcntController {
     @RequestMapping(value="/account/dept/list")
     @ResponseBody
     public Map<String, Object> account_dept_list(CommandMap commandMap) throws Exception {
+
+        Map<String, Object> TotalCnt = acntService.account_dept_total_cnt(commandMap.getMap());
         List<Map<String, Object>> ListMap = acntService.account_dept_list(commandMap.getMap());
+
         Map<String,Object> Map = new HashMap<>();
+
+        Map.put("total", TotalCnt.get("cnt"));
         Map.put("rows", ListMap);
         return Map;
     }
