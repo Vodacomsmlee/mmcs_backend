@@ -56,6 +56,7 @@ public class ConfServiceImpl implements ConfService{
         return confDao.conference_del(map);
     }
 
+
     /* attendant */
     @Override
     public List<Map<String, Object>> attendant_list(Map<String, Object> map) {
@@ -99,5 +100,9 @@ public class ConfServiceImpl implements ConfService{
     @Override
     public int reserve_del(Map<String, Object> map) {
         return confDao.reserve_del(map);
+    }
+    @Override
+    public int reserve_pause(Map<String, Object> map) {
+        return confDao.reserve_pause(map);
     }
 }

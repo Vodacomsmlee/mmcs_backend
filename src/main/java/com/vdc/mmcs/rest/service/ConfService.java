@@ -32,4 +32,5 @@ public interface ConfService {
     int reserve_add(Map<String, Object> map) throws Exception;
     int reserve_edt(Map<String, Object> map) throws Exception;
     int reserve_del(Map<String, Object> map) throws Exception;
+    int reserve_pause(Map<String, Object> map) throws Exception;
 }

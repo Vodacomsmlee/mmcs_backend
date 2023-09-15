@@ -52,6 +52,7 @@ public class ConfDao extends AbstractDAO{
         return (int) update(sqlSession, "conf.conference_del", map);
     }
 
+
     /* attendant */
     @SuppressWarnings("unchecked")
     public List<Map<String, Object>> attendant_list(Map<String, Object> map) {
@@ -86,5 +87,8 @@ public class ConfDao extends AbstractDAO{
     }
     public int reserve_del(Map<String, Object> map) {
         return (int) update(sqlSession, "conf.reserve_del", map);
+    }
+    public int reserve_pause(Map<String, Object> map) {
+        return (int) update(sqlSession, "conf.reserve_pause", map);
     }
 }

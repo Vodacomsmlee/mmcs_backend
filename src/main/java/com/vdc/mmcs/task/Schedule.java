@@ -44,6 +44,7 @@ public class Schedule {
     @Resource(name="taskDao")
     private TaskDao taskDao;
 
+    // 채널 모니터링
     @Scheduled(cron = "0 0/5 * * * *", zone = "Asia/Seoul") // 매 5분마다 // fixedDelay = 1000 * 60 * 5
     public void Channel() {
 
@@ -75,7 +76,8 @@ public class Schedule {
 
     }
 
-    @Scheduled(cron = "0 0/1 * * * *", zone = "Asia/Seoul") // 매 10분마다 // cron = "0 0/10 * * * *"
+    //예약건에 대해 참석자 호출
+    @Scheduled(cron = "0 0/10 * * * *", zone = "Asia/Seoul") // 매 10분마다 // cron = "0 0/10 * * * *"
     public void ConferenceReserve() {
 
         try {
@@ -125,6 +127,10 @@ public class Schedule {
             logger.info("----- [ERROR] ConferenceReserve Task -----");
         }
     }
+
+
+
+
 
     public Map<String,Object> FreeSwitchSend(List<NameValuePair> nameValuePairs) {
         Gson gson = new Gson();

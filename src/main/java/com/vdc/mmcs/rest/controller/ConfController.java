@@ -157,6 +157,7 @@ public class ConfController {
         return Map;
     }
 
+
     /* attendant */
     @RequestMapping(value="/attendant/list")
     @ResponseBody
@@ -301,6 +302,24 @@ public class ConfController {
 
         try {
             confService.reserve_del(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
+
+        return Map;
+    }
+
+    // 예약 중지
+    @RequestMapping(value="/reserve/pause")
+    @ResponseBody
+    public Map<String, Object> reserve_skip(CommandMap commandMap) {
+
+        Map<String,Object> Map = new HashMap<>();
+
+        try {
+            confService.reserve_pause(commandMap.getMap());
             Map.put("success", true);
         } catch (Exception e) {
             Map.put("success", false);
