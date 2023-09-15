@@ -53,7 +53,7 @@
     </update>
 
     <select id="phone_group_list" parameterType="hashmap" resultType="hashmap">
-        call usp_phone_group_list_s(#{grp_seq, jdbcType=INTEGER}, #{tel_type}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+        call usp_phone_group_list_s(#{grp_seq, jdbcType=INTEGER}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </select>
 
     <update id="phone_group_edt" parameterType="hashmap">
