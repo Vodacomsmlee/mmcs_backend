@@ -85,7 +85,7 @@ public class WebSessionListener implements HttpSessionListener {
      * @param value
      */
     public void setSession(HttpServletRequest request, String value){
-        log.info("setSession 실행");
+//        log.info("setSession 실행");
         HttpSession session = request.getSession();
         session.setAttribute("user_id", value);
 
@@ -111,7 +111,7 @@ public class WebSessionListener implements HttpSessionListener {
         session.removeAttribute("user_id");
         session.invalidate();
 
-        log.info("removeSession 실행 : "+userId);
+//        log.info("removeSession 실행 : "+userId);
 
 //        if(userId != null){
 //            this.updateUserCloseTime(userId);

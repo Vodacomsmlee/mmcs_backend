@@ -30,6 +30,9 @@
     <select id="conference_info" parameterType="hashmap" resultType="hashmap">
         call usp_conference_info_s(#{cfrm_seq, jdbcType=INTEGER});
     </select>
+    <select id="conference_info_tel_no" parameterType="hashmap" resultType="hashmap">
+        call usp_conference_telno_s(#{cfrm_tel_no});
+    </select>
 
     <insert id="conference_add" parameterType="hashmap">
         call usp_conference_i(#{cfrm_tel_no}, #{cfrm_type, jdbcType=INTEGER}, #{cfrm_nm}, #{rec_use_yn, jdbcType=INTEGER}, #{ownr_user_id}

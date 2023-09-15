@@ -107,6 +107,17 @@ public class ConfController {
         return Map;
     }
 
+    // 회의실 전화번호 검색
+    @RequestMapping(value="/conference/info/tel")
+    @ResponseBody
+    public Map<String, Object> conference_info_tel_no(CommandMap commandMap) throws Exception {
+        List<Map<String, Object>> ListMap = confService.conference_info_tel_no(commandMap.getMap());
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+        return Map;
+    }
+
+
     @RequestMapping(value="/conference/add")
     @ResponseBody
     public Map<String, Object> conference_add(CommandMap commandMap) {

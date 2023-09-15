@@ -14,7 +14,6 @@ public class ConfDao extends AbstractDAO{
     @Resource(name="sqlSessionMain")
     private SqlSessionTemplate sqlSession;
 
-    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> holiday_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "conf.holiday_list", map);
     }
@@ -30,17 +29,17 @@ public class ConfDao extends AbstractDAO{
 
 
     /* conference */
-
     public Map<String, Object> conference_total_cnt(Map<String, Object> map) {
         return (Map<String, Object>)selectOne(sqlSession, "conf.conference_total_cnt", map);
     }
-    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> conference_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "conf.conference_list", map);
     }
-    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> conference_info(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "conf.conference_info", map);
+    }
+    public List<Map<String, Object>> conference_info_tel_no(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "conf.conference_info_tel_no", map);
     }
     public int conference_add(Map<String, Object> map) {
         return (int) insert(sqlSession, "conf.conference_add", map);
@@ -54,7 +53,6 @@ public class ConfDao extends AbstractDAO{
 
 
     /* attendant */
-    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> attendant_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "conf.attendant_list", map);
     }
@@ -75,7 +73,6 @@ public class ConfDao extends AbstractDAO{
     }
 
     /* conference_reserve */
-    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> reserve_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "conf.reserve_list", map);
     }

@@ -44,6 +44,10 @@ public class ConfServiceImpl implements ConfService{
         return confDao.conference_info(map);
     }
     @Override
+    public List<Map<String, Object>> conference_info_tel_no(Map<String, Object> map) {
+        return confDao.conference_info_tel_no(map);
+    }
+    @Override
     public int conference_add(Map<String, Object> map) {
         return confDao.conference_add(map);
     }

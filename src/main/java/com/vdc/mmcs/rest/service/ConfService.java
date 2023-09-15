@@ -14,6 +14,7 @@ public interface ConfService {
     Map<String, Object> conference_total_cnt(Map<String, Object> map) throws Exception;
     List<Map<String, Object>> conference_list(Map<String, Object> map) throws Exception;
     List<Map<String, Object>> conference_info(Map<String, Object> map) throws Exception;
+    List<Map<String, Object>> conference_info_tel_no(Map<String, Object> map) throws Exception;
     int conference_add(Map<String, Object> map) throws Exception;
     int conference_edt(Map<String, Object> map) throws Exception;
     int conference_del(Map<String, Object> map) throws Exception;
