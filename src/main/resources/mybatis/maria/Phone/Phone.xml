@@ -45,7 +45,7 @@
     </insert>
 
     <update id="phone_edt" parameterType="hashmap">
-        call usp_phone_u(#{seq, jdbcType=INTEGER}, #{tel_no}, #{disp_nm}, #{desc}, #{extrnl_yn}, #{extrnl_acces_cd}, #{_SESSION_USER_ID_});
+        call usp_phone_u(#{seq, jdbcType=INTEGER}, #{tel_no}, #{disp_nm}, #{desc}, #{grp_seq}, #{extrnl_yn}, #{extrnl_acces_cd}, #{_SESSION_USER_ID_});
     </update>
 
     <update id="phone_del" parameterType="hashmap">
