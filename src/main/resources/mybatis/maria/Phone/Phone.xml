@@ -56,6 +56,10 @@
         call usp_phone_group_list_s(#{grp_seq, jdbcType=INTEGER}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </select>
 
+    <select id="phone_group_total_cnt" parameterType="hashmap" resultType="hashmap">
+        call usp_phone_group_total_cnt_s(#{grp_seq, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+    </select>
+
     <update id="phone_group_edt" parameterType="hashmap">
         call usp_phone_group_u(#{seq}, #{grp_seq, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </update>

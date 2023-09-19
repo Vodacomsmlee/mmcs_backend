@@ -60,6 +60,9 @@ public class PhoneDao extends AbstractDAO {
     public List<Map<String, Object>> phone_group_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "phone.phone_group_list", map);
     }
+    public Map<String, Object> phone_group_total_cnt(Map<String, Object> map) {
+        return (Map<String, Object>)selectOne(sqlSession, "phone.phone_group_total_cnt", map);
+    }
     public int phone_group_edt(Map<String, Object> map) {
         return (int) update(sqlSession, "phone.phone_group_edt", map);
     }

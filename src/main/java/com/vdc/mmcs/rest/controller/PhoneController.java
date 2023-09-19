@@ -179,11 +179,17 @@ public class PhoneController {
     @RequestMapping(value="/phone_book/group/list")
     @ResponseBody
     public Map<String, Object> phone_group_list(CommandMap commandMap) throws Exception {
+
+        Map<String, Object> TotalCnt = phoneService.phone_group_total_cnt(commandMap.getMap());
         List<Map<String, Object>> ListMap = phoneService.phone_group_list(commandMap.getMap());
+
         Map<String,Object> Map = new HashMap<>();
+
+        Map.put("total", TotalCnt.get("cnt"));
         Map.put("rows", ListMap);
         return Map;
     }
+
 
     // 전화번호 그룹만 수정
     @RequestMapping(value="/phone_book/group/edt")

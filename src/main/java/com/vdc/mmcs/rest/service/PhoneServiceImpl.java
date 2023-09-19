@@ -72,6 +72,10 @@ public class PhoneServiceImpl implements PhoneService {
         return phoneDao.phone_group_list(map);
     }
     @Override
+    public Map<String, Object> phone_group_total_cnt(Map<String, Object> map) {
+        return phoneDao.phone_group_total_cnt(map);
+    }
+    @Override
     public int phone_group_edt(Map<String, Object> map) {
         return phoneDao.phone_group_edt(map);
     }
