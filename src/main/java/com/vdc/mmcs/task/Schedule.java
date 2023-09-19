@@ -128,10 +128,6 @@ public class Schedule {
         }
     }
 
-
-
-
-
     public Map<String,Object> FreeSwitchSend(List<NameValuePair> nameValuePairs) {
         Gson gson = new Gson();
         Map<String,Object> response_map = new HashMap<>();

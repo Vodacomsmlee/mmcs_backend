@@ -86,8 +86,10 @@
 
     <update id="reserve_edt" parameterType="hashmap">
         call usp_reserve_u(#{seq}, #{rsrv_nm}
+            <!--
             , #{repeat_type, jdbcType=INTEGER}
             , #{repeat_weekday, jdbcType=INTEGER}
+            -->
             , #{hday_ecpt_yn, jdbcType=INTEGER}
             , #{sat_ecpt_yn, jdbcType=INTEGER}
             , #{sun_ecpt_yn, jdbcType=INTEGER}
