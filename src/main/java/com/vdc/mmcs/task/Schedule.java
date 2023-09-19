@@ -35,10 +35,12 @@ public class Schedule {
 
     @Value("${task.channel_url}")
     private String channel_url;
-    @Value("${task.conference_url}")
-    private String conference_url;
-    @Value("${task.freeswitch_cmd}")
-    private String freeswitch_cmd;
+
+    @Value("${task.freeswitch_request_url}")
+    private String freeswitch_request_url;
+
+    @Value("${task.conference_cmd}")
+    private String conference_cmd;
 
 
     @Resource(name="taskDao")
@@ -90,28 +92,22 @@ public class Schedule {
 
             for (Map<String, Object> ObjectMap : reserveMap) {
 
-                Map<String,Object> parmMap = new HashMap<>();
-                parmMap.put("cfrm_seq",ObjectMap.get("cfrm_seq"));
-                List<Map<String, Object>> attendantMap = taskDao.attendant(parmMap);
+                //2. 정기회의 호출
+                List<NameValuePair> nameValuePairs = new ArrayList<>(1);
+                String SendCmd = conference_cmd + " "+ ObjectMap.get("cfrm_tel_no") +" "+ ObjectMap.get("ownr_user_id");
 
-                for (Map<String, Object> atdtMap : attendantMap) {
-                    //2. 조회된 참석자 호출
-                    List<NameValuePair> nameValuePairs = new ArrayList<>(1);
-                    String SendCmd = freeswitch_cmd + " "+ ObjectMap.get("cfrm_tel_no") +" "+ atdtMap.get("atdt_tel_no");
+                logger.info("SEND CMD : "+SendCmd);
 
-                    logger.info("SEND CMD : "+SendCmd);
+                nameValuePairs.add(new BasicNameValuePair("cmd", SendCmd));
+                nameValuePairs.add(new BasicNameValuePair("seq", ObjectMap.get("seq").toString()));
 
-                    nameValuePairs.add(new BasicNameValuePair("cmd", SendCmd));
-                    nameValuePairs.add(new BasicNameValuePair("seq", atdtMap.get("seq").toString()));
+                Map<String,Object> SendRstMap = FreeSwitchSend(nameValuePairs);
 
-                    Map<String,Object> SendRstMap = FreeSwitchSend(nameValuePairs);
-
-                    if ("false".equals(SendRstMap.get("success").toString())) {
-                        logger.info("----- [ERROR] Freeswitch Send ERROR -----");
-                        logger.info("----- CMD : "+ SendCmd +" -----");
-                        logger.info("----- ERROR MSG : "+ SendRstMap.get("msg").toString() +" -----");
+                if ("false".equals(SendRstMap.get("success").toString())) {
+                    logger.info("----- [ERROR] Freeswitch Send ERROR -----");
+                    logger.info("----- CMD : "+ SendCmd +" -----");
+                    logger.info("----- ERROR MSG : "+ SendRstMap.get("msg").toString() +" -----");
                     }
-                }
 
                 Map<String,Object> updateParmMap = new HashMap<>();
                 updateParmMap.put("seq", ObjectMap.get("seq"));
@@ -139,7 +135,7 @@ public class Schedule {
                     NoopHostnameVerifier.INSTANCE);
             CloseableHttpClient client = HttpClients.custom().setSSLSocketFactory(scsf).build();
 
-            URIBuilder builder = new URIBuilder(conference_url);
+            URIBuilder builder = new URIBuilder(freeswitch_request_url);
             HttpPost method = new HttpPost(builder.build());
             method.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
 

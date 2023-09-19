@@ -33,5 +33,6 @@ logging:
 #체널 모니터링 URL
 task:
   channel_url: http://192.168.102.115:8078/VDCFreeswitch/home_channels.vdc
-  conference_url: http://192.168.102.115:8078/VDCFreeswitch/reqcmd.vdc
-  freeswitch_cmd: luarun hanbit_test_01.lua
+  freeswitch_request_url: http://192.168.102.115:8078/VDCFreeswitch/reqcmd.vdc
+  conference_cmd: luarun mmcs_lua_conference_outboundcall.lua
+  conference_person_cmd : luarun mmcs_lua_conference_auto_outboundrecall.lua

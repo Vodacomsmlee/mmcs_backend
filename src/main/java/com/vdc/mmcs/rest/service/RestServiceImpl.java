@@ -13,8 +13,4 @@ public class RestServiceImpl implements RestService {
     @Resource(name="restDao")
     private RestDao restDao;
 
-    @Override
-    public List<Map<String, Object>> get_common(Map<String, Object> map) {
-        return restDao.get_common(map);
-    }
 }
