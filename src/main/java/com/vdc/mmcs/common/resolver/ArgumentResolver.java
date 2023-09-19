@@ -52,7 +52,7 @@ public class ArgumentResolver implements HandlerMethodArgumentResolver {
                     commandMap.put(key, (values.length > 1) ? values : XssFilter(policy.sanitize(values[0])));
                 }
 
-                logger.debug("##### XSSParam key : "+key+", value : "+values[0]);
+                logger.debug("key : "+key+", value : "+values[0]);
 
             }
         }
