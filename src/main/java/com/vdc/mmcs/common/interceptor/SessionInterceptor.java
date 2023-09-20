@@ -42,8 +42,8 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     private boolean hasSessionInfo(HttpSession session)
     {
-//        return (session.getAttribute("user_id") != null);
-        return (session.getId() != null);
+        return (session.getAttribute("user_id") != null);
+//        return (session.getId() != null);
     }
 
 
