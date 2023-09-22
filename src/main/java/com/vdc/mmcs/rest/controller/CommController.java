@@ -34,5 +34,18 @@ public class CommController {
 
         return Map;
     }
+    @RequestMapping(value="/monitoring/cconference")
+    @ResponseBody
+    public Map<String, Object> montrn_cconference_info(CommandMap commandMap) throws Exception {
+
+        List<Map<String, Object>> ListMap = commService.montrn_cconference_info(commandMap.getMap());
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+
+        return Map;
+    }
+
+
+
 
 }

@@ -5,5 +5,6 @@ import java.util.Map;
 
 public interface CommService {
     List<Map<String, Object>> montrn_channel(Map<String, Object> map) throws Exception;
+    List<Map<String, Object>> montrn_cconference_info(Map<String, Object> map) throws Exception;
 
 }

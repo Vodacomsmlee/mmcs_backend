@@ -27,11 +27,11 @@
     </select>
 
     <insert id="account_add" parameterType="hashmap">
-        call usp_account_i(#{user_id}, #{user_pwd}, #{user_nm}, #{dept_cd}, #{auth_cd, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+        call usp_account_i(#{user_id}, #{user_pwd}, #{user_nm}, #{mobile_no}, #{dept_cd}, #{auth_cd, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </insert>
 
     <update id="account_edt" parameterType="hashmap">
-        call usp_account_u(#{user_id}, #{user_pwd}, #{pwd_edt_yn}, #{user_nm}, #{dept_cd}, #{auth_cd, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+        call usp_account_u(#{user_id}, #{user_pwd}, #{pwd_edt_yn}, #{user_nm}, #{mobile_no}, #{dept_cd}, #{auth_cd, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </update>
 
     <update id="account_dept_edt" parameterType="hashmap">
