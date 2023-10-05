@@ -90,6 +90,10 @@ public class ConfServiceImpl implements ConfService{
 
     /* conference_reserve */
     @Override
+    public List<Map<String, Object>> reserve_all_list(Map<String, Object> map) {
+        return confDao.reserve_all_list(map);
+    }
+    @Override
     public List<Map<String, Object>> reserve_list(Map<String, Object> map) {
         return confDao.reserve_list(map);
     }

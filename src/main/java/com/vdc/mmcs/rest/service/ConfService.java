@@ -29,6 +29,7 @@ public interface ConfService {
 
 
     /* conference_reserve */
+    List<Map<String, Object>> reserve_all_list(Map<String, Object> map) throws Exception;
     List<Map<String, Object>> reserve_list(Map<String, Object> map) throws Exception;
     int reserve_add(Map<String, Object> map) throws Exception;
     int reserve_edt(Map<String, Object> map) throws Exception;

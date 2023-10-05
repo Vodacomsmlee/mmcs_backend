@@ -73,6 +73,9 @@ public class ConfDao extends AbstractDAO{
     }
 
     /* conference_reserve */
+    public List<Map<String, Object>> reserve_all_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "conf.reserve_all_list", map);
+    }
     public List<Map<String, Object>> reserve_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "conf.reserve_list", map);
     }

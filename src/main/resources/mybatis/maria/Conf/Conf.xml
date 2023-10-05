@@ -71,6 +71,10 @@
     </update>
 
     <!-- reserve -->
+    <select id="reserve_all_list" parameterType="hashmap" resultType="hashmap">
+        call usp_reserve_all_list_s(#{_SESSION_USER_ID_});
+    </select>
+
     <select id="reserve_list" parameterType="hashmap" resultType="hashmap">
         call usp_reserve_list_s(#{cfrm_seq, jdbcType=INTEGER});
     </select>
@@ -100,7 +104,7 @@
     </update>
 
     <update id="reserve_pause" parameterType="hashmap">
-        call usp_reserve_pause_u(#{cfrm_seq}, #{rsrv_run_stat, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+        call usp_reserve_pause_u(#{seq}, #{rsrv_run_stat, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </update>
 
 

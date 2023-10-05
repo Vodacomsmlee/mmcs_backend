@@ -20,6 +20,8 @@ spring:
       enabled: true
   freemarker:
     cache: false
+  #main:
+  #  web-application-type: none
 ---
 #Log
 logging:
@@ -30,7 +32,7 @@ logging:
     errfile: mmcs_err
 
 ---
-#체널 모니터링 URL
+#스케쥴 관련 : 체널 모니터링 URL, freeswitch 명령어
 task:
   channel_url: http://192.168.102.115:8078/VDCFreeswitch/home_channels.vdc
   freeswitch_request_url: http://192.168.102.115:8078/VDCFreeswitch/reqcmd.vdc

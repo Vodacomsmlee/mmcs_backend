@@ -263,6 +263,17 @@ public class ConfController {
 
 
     /* conference_reserve */
+    @RequestMapping(value="/reserve/all/list")
+    @ResponseBody
+    public Map<String, Object> reserve_all_list(CommandMap commandMap) throws Exception {
+
+        List<Map<String, Object>> ListMap = confService.reserve_all_list(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+
+        return Map;
+    }
     @RequestMapping(value="/reserve/list")
     @ResponseBody
     public Map<String, Object> reserve_list(CommandMap commandMap) throws Exception {
