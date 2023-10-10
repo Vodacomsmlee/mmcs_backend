@@ -128,5 +128,17 @@ public class ConfServiceImpl implements ConfService{
         map.put("conn_ip", StringUtil.getClientIp(request));
         return confDao.hist_rec_Add(map);
     }
+    @Override
+    public List<Map<String, Object>> hist_conference_list(Map<String, Object> map) {
+        return confDao.hist_conference_list(map);
+    }
+    @Override
+    public Map<String, Object> hist_conference_total_cnt(Map<String, Object> map) {
+        return confDao.hist_conference_total_cnt(map);
+    }
+    @Override
+    public List<Map<String, Object>> hist_conference_attendant_list(Map<String, Object> map) {
+        return confDao.hist_conference_attendant_list(map);
+    }
 
 }

@@ -102,5 +102,13 @@ public class ConfDao extends AbstractDAO{
     public int hist_rec_Add(Map<String, Object> map) {
         return (int) insert(sqlSession, "conf.hist_rec_Add", map);
     }
-
+    public List<Map<String, Object>> hist_conference_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "conf.hist_conference_list", map);
+    }
+    public Map<String, Object> hist_conference_total_cnt(Map<String, Object> map) {
+        return (Map<String, Object>)selectList(sqlSession, "conf.hist_conference_total_cnt", map);
+    }
+    public List<Map<String, Object>> hist_conference_attendant_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "conf.hist_conference_attendant_list", map);
+    }
 }

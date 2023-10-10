@@ -381,4 +381,26 @@ public class ConfController {
         return Map;
     }
 
+    @RequestMapping(value="/hist/conference/list")
+    @ResponseBody
+    public Map<String, Object> hist_conference_list(CommandMap commandMap) throws Exception {
+
+        Map<String, Object> TotalCnt = confService.hist_conference_total_cnt(commandMap.getMap());
+        List<Map<String, Object>> ListMap = confService.hist_conference_list(commandMap.getMap());
+
+        Map<String, Object> Map = new HashMap<>();
+        Map.put("total", TotalCnt.get("cnt"));
+        Map.put("rows", ListMap);
+        return Map;
+    }
+    @RequestMapping(value="/hist/conference/attendant/list")
+    @ResponseBody
+    public Map<String, Object> hist_conference_attendant_list(CommandMap commandMap) throws Exception {
+
+        List<Map<String, Object>> ListMap = confService.hist_conference_attendant_list(commandMap.getMap());
+
+        Map<String, Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+        return Map;
+    }
 }
