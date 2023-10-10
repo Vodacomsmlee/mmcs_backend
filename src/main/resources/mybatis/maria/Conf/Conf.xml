@@ -107,5 +107,16 @@
         call usp_reserve_pause_u(#{seq}, #{rsrv_run_stat, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
     </update>
 
+    <!-- Hist -->
+    <select id="hist_rec_total_cnt" parameterType="hashmap" resultType="hashmap">
+        call usp_rec_hist_total_cnt_s(#{cdr_uuid});
+    </select>
+    <select id="hist_rec_list" parameterType="hashmap" resultType="hashmap">
+        call usp_rec_hist_list_s(#{cdr_uuid}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
+    </select>
+    <insert id="hist_rec_Add" parameterType="hashmap">
+        call usp_rec_hist_i(#{cdr_uuid}, #{hist_type, jdbcType=INTEGER}, #{conn_ip}, #{_SESSION_USER_ID_});
+    </insert>
+
 
 </mapper>

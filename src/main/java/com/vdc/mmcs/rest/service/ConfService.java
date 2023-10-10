@@ -1,5 +1,6 @@
 package com.vdc.mmcs.rest.service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -35,4 +36,11 @@ public interface ConfService {
     int reserve_edt(Map<String, Object> map) throws Exception;
     int reserve_del(Map<String, Object> map) throws Exception;
     int reserve_pause(Map<String, Object> map) throws Exception;
+
+
+    /* hist */
+    Map<String, Object> hist_rec_total_cnt(Map<String, Object> map) throws Exception;
+    List<Map<String, Object>> hist_rec_list(Map<String, Object> map) throws Exception;
+    int hist_rec_Add(Map<String, Object> map, HttpServletRequest request) throws Exception;
+
 }
