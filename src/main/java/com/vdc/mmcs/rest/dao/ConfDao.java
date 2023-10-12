@@ -106,7 +106,7 @@ public class ConfDao extends AbstractDAO{
         return (List<Map<String, Object>>)selectList(sqlSession, "conf.hist_conference_list", map);
     }
     public Map<String, Object> hist_conference_total_cnt(Map<String, Object> map) {
-        return (Map<String, Object>)selectList(sqlSession, "conf.hist_conference_total_cnt", map);
+        return (Map<String, Object>)selectOne(sqlSession, "conf.hist_conference_total_cnt", map);
     }
     public List<Map<String, Object>> hist_conference_attendant_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "conf.hist_conference_attendant_list", map);
