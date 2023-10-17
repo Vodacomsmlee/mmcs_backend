@@ -26,11 +26,11 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(sessionInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/login/proc", "/logout");
+                .excludePathPatterns("/", "/login/proc", "/logout", "/rec/**", "/js/**", "/css/**", "/fonts/**");
 
         registry.addInterceptor(loggerInterceptor())
-                .addPathPatterns("/**");
-//                .excludePathPatterns("/assets/**","/api/**", "/excel/**");
+                .addPathPatterns("/**")
+                .excludePathPatterns("/js/**", "/css/**", "/fonts/**");
     }
 
     //parameter Resolver

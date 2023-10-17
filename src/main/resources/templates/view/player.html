@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rec Player</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/vpplayer.css}">
+
+    <script th:src="@{/js/jquery-2.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/vpplayer.js}"></script>
+</head>
+
+
+<!--
+<body style="overflow-x: hidden;overflow-y: hidden;">
+<body onresize="parent.resizeTo(500,400)" onload="parent.resizeTo(500,400)">
+ -->
+<body style="overflow-x: hidden;overflow-y: hidden;">
+
+<div id="player"></div>
+
+<!-- <a download="download.wav" id="dnlink">download</a> -->
+<!-- Context Path -->
+<link id="contextPathHolder" th:data-contextPath="${#httpServletRequest.getContextPath()}"/>
+<script type="text/javascript">
+    let CONTEXT_PATH = document.getElementById("contextPathHolder").getAttribute("data-contextPath") ? document.getElementById("contextPathHolder").getAttribute("data-contextPath") : '';
+</script>
+
+<script type="text/javascript">
+    let wav = null;
+
+    /*<![CDATA[*/
+    let uuid = "[[${info.conference_uuid}]]";
+    let permission = "[[${info.auth_cd}]]";
+    let rst_fnm = "[[${info.orgFilName}]]";
+    rst_fnm = rst_fnm.replace(/_enc/gi, '');
+
+    let conn_user_id = "[[${info.conn_user_id}]]";
+    let ownr_user_id = "[[${info.ownr_user_id}]]";
+    wav = "[[${info.base64File}]]";
+    /*]]>*/
+
+    console.log("conn_user_id", conn_user_id);
+    console.log("ownr_user_id", ownr_user_id);
+    console.log("uuid", uuid);
+    console.log("permission", permission);
+    console.log("rst_fnm", rst_fnm);
+    console.log("wav", wav);
+
+    let listen_yn = false;
+
+    if (conn_user_id === ownr_user_id) listen_yn = true;
+    if (permission === "3") listen_yn = true;
+
+    if (listen_yn) {
+
+        if(wav === "") {
+            alert("음원 파일이 존재하지 않습니다.");
+            // self.close();
+        }
+        else
+        {
+            $("#player").vpplayer({
+                src: "data:audio/wav;base64,"+wav,
+                type:"audio/wav",
+                preloadMessage: "LOADING...........",
+                trackName: rst_fnm
+            });
+
+            if(permission === "3" || conn_user_id === ownr_user_id){ //1, 2 일경우 소유자의 녹취파일인지 확인필요
+                $(".download").css("display","block")
+                    .attr("href","data:audio/wav;base64,"+wav)
+                    .attr("download",rst_fnm)
+                    .attr("title","DOWNLOAD");
+            }
+            $(".track-control-group").css("padding-left","22%").css("text-align","left");
+            $("#trackName").css("padding-top","4px").css("font-size","11px");
+        }
+    }
+    else
+    {
+        alert("권한이 없습니다. 접근 할수 없습니다.");
+        // self.close();
+    }
+
+    window.outerWidth = 200;
+    window.outerHeight = 200
+
+    //openchildbtn
+    $('.download').on('click', function(e){
+        $.ajax({
+            url: CONTEXT_PATH+"/hist/rec/add",
+            method: "POST",
+            data: {
+                    conference_uuid : uuid
+                    , hist_type : 1
+            },
+            success: function(html){
+                console.log('Download Request Save');
+            }
+        });
+    }); // end openchildbtn click event handler
+</script>
+</body>
+</html>

@@ -22,6 +22,15 @@ spring:
     cache: false
   #main:
   #  web-application-type: none
+
+---
+  #thymeleaf 사용
+  spring:
+    thymeleaf:
+      prefix: classpath:templates/
+      suffix: .html
+      cache: false
+
 ---
 #Log
 logging:

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rec Player</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/vpplayer.css}">
+
+    <style>
+        #player { width: 400px; }
+        .bar { width: 1.5%; }
+        ul li { list-style: none; }
+        .plist { padding-top: 5px; }
+        .justify-content-between { justify-content: space-between !important; }
+        .d-flex { display: flex !important; }
+    </style>
+
+    <link id="contextPathHolder" th:data-contextPath="${#httpServletRequest.getContextPath()}"/>
+    <script type="text/javascript">
+        let CONTEXT_PATH = document.getElementById("contextPathHolder").getAttribute("data-contextPath") ? document.getElementById("contextPathHolder").getAttribute("data-contextPath") : '';
+    </script>
+
+    <script th:src="@{/js/jquery-2.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/vpplayer.js}"></script>
+
+
+    <script type="text/javascript">
+        /*<![CDATA[*/
+        // let conference_uuids = "[[${info.conference_uuids}]]";
+        // let rows = "[[${rows}]]";
+        /*]]>*/
+        function sm(secs) {
+            let hr = Math.floor(secs / 3600);
+            let min = Math.floor((secs - (hr * 3600)) / 60);
+            let sec = Math.floor(secs - (hr * 3600) - (min * 60));
+
+            if (min < 10) min = "0" + min;
+            if (sec < 10) sec = "0" + sec;
+
+            let value = hr + ':' +min + ':' + sec;
+
+            if( hr < 0) value = min + ':' + sec;
+            return value;
+        }
+
+        $(document).ready(function(){
+
+            let current = 0;
+            /*<![CDATA[*/
+            let playNum = "[[${info.playNum}]]";
+            /*]]>*/
+            let audio = document.getElementById("audio");
+            let currentTime = "";
+            let duration = "";
+            let playState = "";
+            let repeat = false;
+
+            // 최초 한개는 로드 시켜야한다
+            if ($("#pl_0 > span")[0].dataset.wav !== "") {
+                player("data:audio/wav;base64,"+$("#pl_0 > span")[0].dataset.wav);
+            }
+
+            //일시중지
+            function paused() {
+                return !(audio.paused);
+            }
+
+            function run(link, player, uuid){
+
+                let playwav = "";
+                $.ajax({
+                    method: "POST",
+                    url: CONTEXT_PATH+"/rec/multi/player/info",
+                    data: { conference_uuid: uuid }
+                }).done(function (data) {
+                    console.log(data);
+                    playwav = data.info.base64File;
+
+                    player.src = "data:audio/wav;base64,"+playwav;
+                    audio.play(); //리스트에서 플레이
+
+                    $("#btn_play").attr("class", "pause");
+                    $(".glyphicon-play").attr("class","glyphicon glyphicon-pause");
+
+                    repeat = false;
+                    $(".glyphicon-repeat").css("text-shadow","");
+                    playState ="play";
+                    updateData();
+                });
+
+            }
+
+            // 경과시간
+            function VW_currentTime() {
+                let interval = setInterval(function() {
+                    if(!isNaN(audio.duration)){
+                        currentTime = audio.currentTime;
+                        duration = audio.duration;
+
+                        $(".startTime").text(sm(currentTime) + " ("+audio.playbackRate+"x)");
+                        $(".endTime").text(sm(duration));
+                        $("#seekBar").val(currentTime);
+
+                    }
+                    else
+                    {
+                        clearInterval(interval);
+                        $("#seekBar").val(0);
+                    }
+
+                }, 1000);
+            }
+
+            function updateData() {
+
+                $("._playlist").css("background-color","");
+                $("#pl_"+current).css("background-color","#e7e7e7");
+                let upt = setInterval(function() {
+                    if(!audio.paused){
+                        equalizer(1);
+
+                        if(Math.round(audio.currentTime) === Math.round(audio.duration)) {
+                            equalizer(0);
+                            clearInterval(upt);
+                            $("#seekBar").val(0);
+                        }
+
+                    }
+                }, 100);
+            }
+            function equalizer(type) {
+                if(type === 1) {
+                    [].forEach.call($(".bar"), function(b) {
+                        b.style.height = "100%";
+                        b.style.margin = "0px 1% 0px 0px";
+                        b.style.transform = "scaleY(" + ((Math.random() * 100) / 90)
+                            + ")";
+                    });
+                }
+                else
+                {
+                    [].forEach.call($(".bar"), function(b) {
+                        b.style.height = "10%";
+                        b.style.margin = "21px 1% 0px 0px";
+                        b.style.transform = "scaleY(1)";
+                    });
+                }
+            }
+            // Audio Event
+            function player(source) {
+                audio.src = source;
+                //경과시간및 전체시간
+                audio.addEventListener('loadedmetadata', function() {
+                    currentTime = audio.currentTime;
+                    duration = audio.duration;
+
+                    $(".startTime").text(sm(currentTime) + " ("+audio.playbackRate+"x)");
+                    $(".endTime").text(sm(duration));
+                    $("#seekBar").attr("min", currentTime).attr("max", duration).val(currentTime);
+
+                    VW_currentTime();
+                });
+
+                //다음곡 자동 플레이
+                audio.addEventListener('ended',function(e){
+                    let link = "";
+                    let uuid = "";
+                    if (repeat) {
+                        // link = playList[current].base64;
+                        // link = $("#pl_"+current+" > span")[0].dataset.wav
+                        uuid = $("#pl_"+current+" > span")[0].dataset.uuid
+                    }
+                    else
+                    {
+                        current++;
+                        if(current == playNum){
+                            current = 0;
+                            // link = playList[0].base64;
+                            // link = $("#pl_"+current+" > span")[0].dataset.wav
+                            uuid = $("#pl_"+current+" > span")[0].dataset.uuid
+                        }else{
+                            // link = playList[current].base64;
+                            // link = $("#pl_"+current+" > span")[0].dataset.wav
+                            uuid = $("#pl_"+current+" > span")[0].dataset.uuid
+
+                        }
+                    }
+
+                    equalizer(0);
+                    run(link, audio, uuid);
+                });
+
+            }
+
+
+            $(".next_play").css("cursor","pointer").click(function(e) {
+                let wav = "";//$(this).data('wav');
+                let num = $(this).data('num');
+                let uuid = $(this).data('uuid');
+                e.preventDefault();
+                current = num;
+                run(wav, audio, uuid);
+            });
+
+
+            $("#btn_play").click(function() {
+                if(this.children[0].getAttribute("class") === "glyphicon glyphicon-play") { // play
+                    audio.play(); //player에서 플레이
+                    this.setAttribute("class", "pause");
+                    this.children[0].setAttribute("class", "glyphicon glyphicon-pause");
+                    playState="play";
+                    updateData();
+
+                }
+                else if(this.children[0].getAttribute("class") === "glyphicon glyphicon-pause") { //pause
+                    audio.pause();
+                    this.setAttribute("class", "play");
+                    this.children[0].setAttribute("class", "glyphicon glyphicon-play");
+                    playState="pause";
+                }
+            });
+
+
+            //5s 뒤로
+            $(".rewind").click(function() {
+                if(paused) {
+                    audio.currentTime = (audio.currentTime) - 5;
+                }
+            });
+
+            //5s 앞으로
+            $(".forward").click(function() {
+                if(paused) {
+                    audio.currentTime = (audio.currentTime) + 5;
+                }
+            });
+
+            //반복
+            $(".repeat").click(function() {
+                if (repeat) {
+                    repeat = false;
+                    $(".glyphicon-repeat").css("text-shadow","");
+                }
+                else
+                {
+                    repeat = true;
+                    $(".glyphicon-repeat").css("text-shadow","rgb(255, 255, 255) 0px 0px 10px");
+                }
+            });
+
+
+            $("#seekBar").change(function() {
+                audio.currentTime = this.value;
+            });
+
+            // 볼륨
+            $(".volume").mouseover(function() {
+                $(".volume-range-container").css("opacity",1);
+                if(window.innerWidth >= 610){
+                    $(".volume-range-container").css("width",60+"px");
+                }else if(window.innerWidth <= 610 && window.innerWidth >= 300){
+                    $(".volume-range-container").css("width",55+"px");
+                }else if(window.innerWidth <= 300){
+                    $(".volume-range-container").css("width",25+"px");
+                }
+            });
+
+            $(".volume").mouseleave(function() {
+                $(".volume-range-container").css("opacity", 0);
+                $(".volume-range-container").css("width",0+"px");
+            });
+
+
+            $("._volume").click(function() {
+                if(audio.volume !== 0) {
+                    let pre_volume = audio.volume;
+                    let pre_input_volume = $(".volumeRange").val();
+                    $(this).addClass("glyphicon-volume-off").removeClass("glyphicon-volume-up");
+                    audio.volume = 0 ;
+                    $(".volumeRange").val(0);
+                }
+                else
+                {
+                    $(this).addClass("glyphicon-volume-up").removeClass("glyphicon-volume-off");
+                    audio.volume = pre_volume;
+                    $(".volumeRange").val(pre_volume);
+                }
+            });
+
+
+            $(".volumeRange").change(function() {
+                audio.volume = (this.value/100);
+            });
+
+            //1배속
+            $("#1x").css("cursor","pointer").click(function() {
+                audio.playbackRate=1;
+            });
+            //1.2배속
+            $("#12x").css("cursor","pointer").click(function() {
+                audio.playbackRate=1.2;
+            });
+            //1.4배속
+            $("#14x").css("cursor","pointer").click(function() {
+                audio.playbackRate=1.4;
+            });
+            //1.8배속
+            $("#18x").css("cursor","pointer").click(function() {
+                audio.playbackRate=1.8;
+            });
+
+        });
+
+    </script>
+
+
+</head>
+
+<body>
+
+<div>
+    <div id="player" style="display: block">
+        <div id="vpplayer">
+            <div class="track-picture-container" style="display: none">
+                <i class="glyphicon glyphicon-music playerHeadPhone"></i>
+                <div class="playerName" style="display: none">vpplayer</div>
+            </div>
+
+            <div class="track-container" style="width: 100%">
+                <div style="display: none">
+                    <audio id="audio" preload="auto" tabindex="0" controls=""
+                           type="audio/wav">
+                        <source src="" type="audio/wav">
+                    </audio>
+                </div>
+                <div class="track-data-element-container">
+                    <div class="track-name-details" style="width: 100%;">
+                        <div class="equalizer">
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                            <div class="bar"
+                                 style="height: 10%; margin: 0 1% 0 0; transform: scaleY(1);"></div>
+                        </div>
+                    </div>
+
+                    <div class="track-name" style="text-indent: 313px; display: none">
+                        <div id="trackName">./audio/audio.mp3</div>
+                    </div>
+                </div>
+                <div class="track-control-container">
+                    <div class="track-seek-container">
+                        <div class="track-seekbar-handler">
+                            <div class="time">
+                                <div class="startTime">--:--</div>
+                                <div class="endTime">--:--</div>
+                            </div>
+                            <input type="range" class="seeker" id="seekBar" value="0" min="0" max="4">
+                        </div>
+                        <div class="track-completed"></div>
+                        <div class="track-buffer"></div>
+                    </div>
+                    <div class="track-controlelements-container">
+                        <div class="track-control-group" style="padding-left: 0;">
+                            <div class="rewind">
+                                <i class="glyphicon glyphicon-backward"></i>
+                            </div>
+                            <div class="play" id="btn_play">
+                                <i class="glyphicon glyphicon-play"></i>
+                            </div>
+                            <div class="forward">
+                                <i class="glyphicon glyphicon-forward"></i>
+                            </div>
+                            <div class="repeat">
+                                <i class="glyphicon glyphicon-repeat"></i>
+                            </div>
+                        </div>
+                        <div class="volume-container">
+                            <div class="volume">
+                                <i class="_volume glyphicon glyphicon-volume-up"></i>
+                                <div class="volume-range-container">
+                                    <input class="volumeRange" type="range" min="0" max="100" value="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="volume-container" id="18x" style="float: right;">
+                            <div style="display: inline-block;padding-left: 7px;cursor: pointer;transition: all 0.7s;">1.8</div>
+                        </div>
+                        <div class="volume-container" id="14x" style="float: right;">
+                            <div style="display: inline-block;padding-left: 7px;cursor: pointer;transition: all 0.7s;">1.4</div>
+                        </div>
+                        <div class="volume-container" id="12x" style="float: right;">
+                            <div style="display: inline-block;padding-left: 7px;cursor: pointer;transition: all 0.7s;">1.2</div>
+                        </div>
+                        <div class="volume-container" id="1x" style="float: right;">
+                            <div style="display: inline-block;cursor: pointer;transition: all 0.7s;">1.0</div>
+                        </div>
+                        <span class="playerNameRes"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="overflow: auto; height: 220px;">
+            <ul id="playlist" class="list-group plist">
+                <li class="_playlist list-group-item d-flex justify-content-between align-items-center" th:each="item, itemStat : ${rows}" th:id="'pl_'+${itemStat.index}">
+                    <span class="next_play badge bg-primary rounded-pill" th:data-num="${itemStat.index}" th:data-uuid="${item.conference_uuid}" th:data-wav="${item.base64File}" ><i class="glyphicon glyphicon-headphones"></i></span>
+                    <th:block th:text="${item.orgFilName}"></th:block>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
