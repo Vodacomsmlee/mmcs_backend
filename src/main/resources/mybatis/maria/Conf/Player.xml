@@ -6,4 +6,10 @@
     <select id="get_rec_file" parameterType="hashmap" resultType="hashmap">
         call usp_rec_info_s(#{conference_uuid}, #{_SESSION_USER_ID_})
     </select>
+
+    <select id="get_rec_file_info" parameterType="hashmap" resultType="hashmap">
+        call usp_rec_file_info_s(#{conference_uuid})
+    </select>
+
+
 </mapper>

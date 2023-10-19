@@ -82,7 +82,7 @@
     else
     {
         alert("권한이 없습니다. 접근 할수 없습니다.");
-        // self.close();
+        self.close();
     }
 
     window.outerWidth = 200;
@@ -94,8 +94,8 @@
             url: CONTEXT_PATH+"/hist/rec/add",
             method: "POST",
             data: {
-                    conference_uuid : uuid
-                    , hist_type : 1
+                conference_uuid : uuid
+                , hist_type : 1
             },
             success: function(html){
                 console.log('Download Request Save');

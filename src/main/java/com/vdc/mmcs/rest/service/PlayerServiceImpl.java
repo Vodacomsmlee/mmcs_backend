@@ -24,4 +24,8 @@ public class PlayerServiceImpl implements PlayerService {
         return playerDao.get_rec_base64(map);
     }
 
+    @Override
+    public List<Map<String, Object>> get_rec_file_info(Map<String, Object> map) {
+        return playerDao.get_rec_file_info(map);
+    }
 }

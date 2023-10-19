@@ -22,4 +22,7 @@ public class PlayerDao extends AbstractDAO {
     public Map<String, Object> get_rec_base64(Map<String, Object> map) {
         return (Map<String, Object>)selectOne(sqlSession, "player.get_rec_file", map);
     }
+    public List<Map<String, Object>> get_rec_file_info(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "player.get_rec_file_info", map);
+    }
 }

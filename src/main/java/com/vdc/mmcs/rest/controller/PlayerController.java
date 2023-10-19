@@ -4,6 +4,7 @@ import com.vdc.mmcs.common.resolver.CommandMap;
 import com.vdc.mmcs.common.util.CryptUtil;
 import com.vdc.mmcs.rest.service.ConfService;
 import com.vdc.mmcs.rest.service.PlayerService;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +14,10 @@ import org.thymeleaf.util.MapUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -68,6 +71,9 @@ public class PlayerController {
             Result.put("msg", "[Data Empty] cdr_conference");
         }
 
+        Result.put("conference_uuid", commandMap.getMap().get("conference_uuid"));
+        Result.put("conn_user_id", session.getAttribute("user_id"));
+        Result.put("auth_cd", session.getAttribute("auth_cd"));
 
         ModelAndView mv = new ModelAndView("view/player");
         mv.addObject("info", Result);
@@ -117,7 +123,7 @@ public class PlayerController {
 
     @RequestMapping("/rec/multi/player/info")
     @ResponseBody
-    public Map<String, Object> get_rec_base64(CommandMap commandMap, HttpSession session, HttpServletRequest request) throws Exception {
+    public Map<String, Object> get_rec_base64(CommandMap commandMap, HttpServletRequest request) throws Exception {
         Map<String,Object> Map = new HashMap<>();
         Map<String,Object> Result = new HashMap<>();
         Map<String, Object> infoMap = playerService.get_rec_base64(commandMap.getMap());
@@ -155,5 +161,36 @@ public class PlayerController {
 
         Map.put("info", Result);
         return Map;
+    }
+
+    @RequestMapping("/rec/dn")
+    public void download(CommandMap commandMap, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
+
+        List<Map<String, Object>> ListMap = playerService.get_rec_file_info(commandMap.getMap());
+
+        for(Map<String, Object> infoMap : ListMap){
+            String filePath = infoMap.get("conference_record_path").toString();
+            File encFile = new File(filePath);
+
+            if (encFile.exists()) {
+                byte[] encFileData = CryptUtil.decrypt(_CRYPT_KEY_, encFile);
+
+                response.setContentType("application/octet-stream");
+                response.setContentLength(encFileData.length);
+                response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(encFile.getName(),"UTF-8")+"\";");
+                response.setHeader("Content-Transfer-Encoding", "binary");
+                response.getOutputStream().write(encFileData);
+
+                response.getOutputStream().flush();
+                response.getOutputStream().close();
+
+                //download history
+                Map<String, Object> histmap = new HashMap<>();
+                histmap.put("conference_uuid", commandMap.getMap().get("conference_uuid"));
+                histmap.put("hist_type", 1);
+                confService.hist_rec_Add(histmap, request);
+            }
+        }
+
     }
 }

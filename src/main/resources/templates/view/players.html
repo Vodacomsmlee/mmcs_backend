@@ -31,7 +31,7 @@
         // let conference_uuids = "[[${info.conference_uuids}]]";
         // let rows = "[[${rows}]]";
         /*]]>*/
-        function sm(secs) {
+        function secToTime(secs) {
             let hr = Math.floor(secs / 3600);
             let min = Math.floor((secs - (hr * 3600)) / 60);
             let sec = Math.floor(secs - (hr * 3600) - (min * 60));
@@ -49,7 +49,7 @@
 
             let current = 0;
             /*<![CDATA[*/
-            let playNum = "[[${info.playNum}]]";
+            let playNum = [[${info.playNum}]];
             /*]]>*/
             let audio = document.getElementById("audio");
             let currentTime = "";
@@ -62,11 +62,8 @@
                 player("data:audio/wav;base64,"+$("#pl_0 > span")[0].dataset.wav);
             }
 
-            //일시중지
-            function paused() {
-                return !(audio.paused);
-            }
 
+            //이전, 다음곡
             function run(link, player, uuid){
 
                 let playwav = "";
@@ -92,6 +89,10 @@
 
             }
 
+            //일시중지
+            function paused() {
+                return !(audio.paused);
+            }
             // 경과시간
             function VW_currentTime() {
                 let interval = setInterval(function() {
@@ -99,8 +100,8 @@
                         currentTime = audio.currentTime;
                         duration = audio.duration;
 
-                        $(".startTime").text(sm(currentTime) + " ("+audio.playbackRate+"x)");
-                        $(".endTime").text(sm(duration));
+                        $(".startTime").text(secToTime(currentTime) + " ("+audio.playbackRate+"x)");
+                        $(".endTime").text(secToTime(duration));
                         $("#seekBar").val(currentTime);
 
                     }
@@ -114,7 +115,6 @@
             }
 
             function updateData() {
-
                 $("._playlist").css("background-color","");
                 $("#pl_"+current).css("background-color","#e7e7e7");
                 let upt = setInterval(function() {
@@ -130,6 +130,7 @@
                     }
                 }, 100);
             }
+
             function equalizer(type) {
                 if(type === 1) {
                     [].forEach.call($(".bar"), function(b) {
@@ -148,6 +149,7 @@
                     });
                 }
             }
+
             // Audio Event
             function player(source) {
                 audio.src = source;
@@ -156,8 +158,8 @@
                     currentTime = audio.currentTime;
                     duration = audio.duration;
 
-                    $(".startTime").text(sm(currentTime) + " ("+audio.playbackRate+"x)");
-                    $(".endTime").text(sm(duration));
+                    $(".startTime").text(secToTime(currentTime) + " ("+audio.playbackRate+"x)");
+                    $(".endTime").text(secToTime(duration));
                     $("#seekBar").attr("min", currentTime).attr("max", duration).val(currentTime);
 
                     VW_currentTime();
@@ -167,25 +169,15 @@
                 audio.addEventListener('ended',function(e){
                     let link = "";
                     let uuid = "";
+
                     if (repeat) {
-                        // link = playList[current].base64;
-                        // link = $("#pl_"+current+" > span")[0].dataset.wav
                         uuid = $("#pl_"+current+" > span")[0].dataset.uuid
                     }
                     else
                     {
                         current++;
-                        if(current == playNum){
-                            current = 0;
-                            // link = playList[0].base64;
-                            // link = $("#pl_"+current+" > span")[0].dataset.wav
-                            uuid = $("#pl_"+current+" > span")[0].dataset.uuid
-                        }else{
-                            // link = playList[current].base64;
-                            // link = $("#pl_"+current+" > span")[0].dataset.wav
-                            uuid = $("#pl_"+current+" > span")[0].dataset.uuid
-
-                        }
+                        if(current === playNum) { current = 0; }
+                        uuid = $("#pl_"+current+" > span")[0].dataset.uuid
                     }
 
                     equalizer(0);
@@ -218,7 +210,7 @@
                     audio.pause();
                     this.setAttribute("class", "play");
                     this.children[0].setAttribute("class", "glyphicon glyphicon-play");
-                    playState="pause";
+                    playState = "pause";
                 }
             });
 
@@ -251,13 +243,10 @@
             });
 
 
-            $("#seekBar").change(function() {
-                audio.currentTime = this.value;
-            });
-
             // 볼륨
             $(".volume").mouseover(function() {
                 $(".volume-range-container").css("opacity",1);
+
                 if(window.innerWidth >= 610){
                     $(".volume-range-container").css("width",60+"px");
                 }else if(window.innerWidth <= 610 && window.innerWidth >= 300){
@@ -267,49 +256,55 @@
                 }
             });
 
-            $(".volume").mouseleave(function() {
-                $(".volume-range-container").css("opacity", 0);
-                $(".volume-range-container").css("width",0+"px");
-            });
-
+            $(".volume").mouseleave(function() { $(".volume-range-container").css("opacity", 0).css("width",0+"px"); });
 
             $("._volume").click(function() {
+
                 if(audio.volume !== 0) {
-                    let pre_volume = audio.volume;
-                    let pre_input_volume = $(".volumeRange").val();
                     $(this).addClass("glyphicon-volume-off").removeClass("glyphicon-volume-up");
                     audio.volume = 0 ;
                     $(".volumeRange").val(0);
                 }
                 else
                 {
+                    let pre_volume = audio.volume;
                     $(this).addClass("glyphicon-volume-up").removeClass("glyphicon-volume-off");
                     audio.volume = pre_volume;
                     $(".volumeRange").val(pre_volume);
                 }
             });
 
+            $(".volumeRange").change(function() { audio.volume = (this.value / 100); });
+            $("#seekBar").change(function() { audio.currentTime = this.value; });
 
-            $(".volumeRange").change(function() {
-                audio.volume = (this.value/100);
-            });
+            $("#1x").css("cursor","pointer").click(function() { audio.playbackRate = 1;}); //1배속
+            $("#12x").css("cursor","pointer").click(function() { audio.playbackRate = 1.2; }); //1.2배속
+            $("#14x").css("cursor","pointer").click(function() { audio.playbackRate = 1.4; }); //1.4배속
+            $("#18x").css("cursor","pointer").click(function() { audio.playbackRate = 1.8; }); //1.8배속
 
-            //1배속
-            $("#1x").css("cursor","pointer").click(function() {
-                audio.playbackRate=1;
+            /*
+            $("#db").click(function (){
+                let downList = ["28507a29-3ee2-414b-88d1-97018cb7b801", "c7cc09a2-7629-4808-9b18-2641f2605389", "f817f055-a08f-4319-8447-6ac40a7e7c34"];
+
+                downList.forEach(function(uuid) {
+                    const req = new XMLHttpRequest();
+                    req.open("GET", CONTEXT_PATH+"/rec/dn?conference_uuid="+ uuid, true);
+                    req.responseType = "arraybuffer";
+                    req.onload = function() {
+                        const arrayBuffer = req.response;
+                        if (arrayBuffer) {
+                            let blob = new Blob([arrayBuffer], { type: "application/octetstream" });
+                            let link = document.createElement('a');
+                            link.href = window.URL.createObjectURL(blob);
+                            link.download = uuid+".wav";
+                            link.click();
+                        }
+                    };
+                    req.send();
+                });
             });
-            //1.2배속
-            $("#12x").css("cursor","pointer").click(function() {
-                audio.playbackRate=1.2;
-            });
-            //1.4배속
-            $("#14x").css("cursor","pointer").click(function() {
-                audio.playbackRate=1.4;
-            });
-            //1.8배속
-            $("#18x").css("cursor","pointer").click(function() {
-                audio.playbackRate=1.8;
-            });
+            */
+
 
         });
 
@@ -465,6 +460,8 @@
         </div>
     </div>
 
+
+<!--    <button id="db">다운로드</button>-->
 </div>
 
 </body>
