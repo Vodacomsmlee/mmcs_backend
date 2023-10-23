@@ -4,7 +4,6 @@ import com.vdc.mmcs.common.resolver.CommandMap;
 import com.vdc.mmcs.common.util.CryptUtil;
 import com.vdc.mmcs.rest.service.ConfService;
 import com.vdc.mmcs.rest.service.PlayerService;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.*;
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.Base64;
 import java.util.HashMap;
@@ -164,7 +163,7 @@ public class PlayerController {
     }
 
     @RequestMapping("/rec/dn")
-    public void download(CommandMap commandMap, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws Exception {
+    public void download(CommandMap commandMap, HttpServletResponse response, HttpServletRequest request) throws Exception {
 
         List<Map<String, Object>> ListMap = playerService.get_rec_file_info(commandMap.getMap());
 

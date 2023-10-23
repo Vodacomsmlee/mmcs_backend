@@ -352,55 +352,5 @@ public class ConfController {
         return Map;
     }
 
-    // 회의실 녹취 이력 목록
-    @RequestMapping(value="/hist/rec/list")
-    @ResponseBody
-    public Map<String, Object> hist_rec_list(CommandMap commandMap) throws Exception {
 
-        Map<String, Object> TotalCnt = confService.hist_rec_total_cnt(commandMap.getMap());
-        List<Map<String, Object>> ListMap = confService.hist_rec_list(commandMap.getMap());
-
-        Map<String, Object> Map = new HashMap<>();
-        Map.put("total", TotalCnt.get("cnt"));
-        Map.put("rows", ListMap);
-        return Map;
-    }
-    @RequestMapping(value="/hist/rec/add")
-    @ResponseBody
-    public Map<String, Object> hist_rec_Add(CommandMap commandMap, HttpServletRequest request) {
-
-        Map<String,Object> Map = new HashMap<>();
-
-        try {
-            confService.hist_rec_Add(commandMap.getMap(), request);
-            Map.put("success", true);
-        } catch (Exception e) {
-            Map.put("success", false);
-            Map.put("msg", e.getMessage());
-        }
-        return Map;
-    }
-
-    @RequestMapping(value="/hist/conference/list")
-    @ResponseBody
-    public Map<String, Object> hist_conference_list(CommandMap commandMap) throws Exception {
-
-        Map<String, Object> TotalCnt = confService.hist_conference_total_cnt(commandMap.getMap());
-        List<Map<String, Object>> ListMap = confService.hist_conference_list(commandMap.getMap());
-
-        Map<String, Object> Map = new HashMap<>();
-        Map.put("total", TotalCnt.get("cnt"));
-        Map.put("rows", ListMap);
-        return Map;
-    }
-    @RequestMapping(value="/hist/conference/attendant/list")
-    @ResponseBody
-    public Map<String, Object> hist_conference_attendant_list(CommandMap commandMap) throws Exception {
-
-        List<Map<String, Object>> ListMap = confService.hist_conference_attendant_list(commandMap.getMap());
-
-        Map<String, Object> Map = new HashMap<>();
-        Map.put("rows", ListMap);
-        return Map;
-    }
 }
