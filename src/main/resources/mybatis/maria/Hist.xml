@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hist">
+
+    <!-- Hist -->
+    <select id="hist_rec_total_cnt" parameterType="hashmap" resultType="hashmap">
+        call usp_rec_hist_total_cnt_s(#{conference_uuid});
+    </select>
+    <select id="hist_rec_list" parameterType="hashmap" resultType="hashmap">
+        call usp_rec_hist_list_s(#{conference_uuid}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
+    </select>
+    <insert id="hist_rec_Add" parameterType="hashmap">
+        call usp_rec_hist_i(#{conference_uuid}, #{hist_type, jdbcType=INTEGER}, #{conn_ip}, #{_SESSION_USER_ID_});
+    </insert>
+    <select id="hist_conference_list" parameterType="hashmap" resultType="hashmap">
+        call usp_conference_hist_list_s(#{sdate}, #{edate}, #{srch_text}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER}, #{_SESSION_USER_ID_});
+    </select>
+    <select id="hist_conference_total_cnt" parameterType="hashmap" resultType="hashmap">
+        call usp_conference_hist_total_cnt_s(#{sdate}, #{edate}, #{srch_text}, #{_SESSION_USER_ID_});
+    </select>
+    <select id="hist_conference_attendant_list" parameterType="hashmap" resultType="hashmap">
+        call usp_conference_hist_attendant_list_s(#{conference_uuid}, #{cfrm_seq, jdbcType=INTEGER});
+    </select>
+
+
+</mapper>
