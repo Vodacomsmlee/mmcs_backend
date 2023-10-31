@@ -45,4 +45,8 @@ public class HistServiceImpl implements HistService{
     public List<Map<String, Object>> hist_conference_stt_list(Map<String, Object> map) {
         return histfDao.hist_conference_stt_list(map);
     }
+    @Override
+    public Map<String, Object> hist_conference_stt_total_cnt(Map<String, Object> map) {
+        return histfDao.hist_conference_stt_total_cnt(map);
+    }
 }

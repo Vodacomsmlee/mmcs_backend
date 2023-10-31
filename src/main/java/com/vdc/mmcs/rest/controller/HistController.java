@@ -77,9 +77,11 @@ public class HistController {
     @RequestMapping(value="/hist/conference/stt/list")
     @ResponseBody
     public Map<String, Object> hist_stt_list(CommandMap commandMap) throws Exception {
+        Map<String, Object> TotalCnt = histService.hist_conference_total_cnt(commandMap.getMap());
         List<Map<String, Object>> ListMap = histService.hist_conference_stt_list(commandMap.getMap());
 
         Map<String, Object> Map = new HashMap<>();
+        Map.put("total", TotalCnt.get("cnt"));
         Map.put("rows", ListMap);
         return Map;
     }

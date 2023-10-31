@@ -15,4 +15,5 @@ public interface HistService {
     Map<String, Object> hist_conference_total_cnt(Map<String, Object> map) throws Exception;
     List<Map<String, Object>> hist_conference_attendant_list(Map<String, Object> map) throws Exception;
     List<Map<String, Object>> hist_conference_stt_list(Map<String, Object> map) throws Exception;
+    Map<String, Object> hist_conference_stt_total_cnt(Map<String, Object> map) throws Exception;
 }
