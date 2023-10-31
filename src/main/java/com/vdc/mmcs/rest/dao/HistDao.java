@@ -33,4 +33,7 @@ public class HistDao extends AbstractDAO{
     public List<Map<String, Object>> hist_conference_attendant_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "hist.hist_conference_attendant_list", map);
     }
+    public List<Map<String, Object>> hist_conference_stt_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "hist.hist_conference_stt_list", map);
+    }
 }

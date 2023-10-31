@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 녹취이력, 회의실 통화이력, 참석자 통화이력
+ * 녹취이력, 회의실 통화이력, 참석자 통화이력, 통계
  */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
@@ -73,4 +73,14 @@ public class HistController {
         Map.put("rows", ListMap);
         return Map;
     }
-}
+
+    @RequestMapping(value="/hist/conference/stt/list")
+    @ResponseBody
+    public Map<String, Object> hist_stt_list(CommandMap commandMap) throws Exception {
+        List<Map<String, Object>> ListMap = histService.hist_conference_stt_list(commandMap.getMap());
+
+        Map<String, Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+        return Map;
+    }
+    }

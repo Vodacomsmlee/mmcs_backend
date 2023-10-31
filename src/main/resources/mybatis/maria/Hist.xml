@@ -22,6 +22,9 @@
     <select id="hist_conference_attendant_list" parameterType="hashmap" resultType="hashmap">
         call usp_conference_hist_attendant_list_s(#{conference_uuid}, #{cfrm_seq, jdbcType=INTEGER});
     </select>
+    <select id="hist_conference_stt_list" parameterType="hashmap" resultType="hashmap">
+        call usp_conference_hist_stt_list_s(#{cfrm_seq}, #{srch_type}, #{start_dt}, #{end_dt}, #{target_type}, #{page, jdbcType=INTEGER}, #{start, jdbcType=INTEGER}, #{limit, jdbcType=INTEGER});
+    </select>
 
 
 </mapper>
