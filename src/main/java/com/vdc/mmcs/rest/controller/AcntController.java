@@ -3,6 +3,7 @@ package com.vdc.mmcs.rest.controller;
 
 import com.vdc.mmcs.common.resolver.CommandMap;
 import com.vdc.mmcs.rest.service.AcntService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +18,11 @@ import java.util.Map;
  *  account, dept
  */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequiredArgsConstructor
 @Controller
 public class AcntController {
 
-    @Resource(name="acntService")
-    private AcntService acntService;
+    private final AcntService acntService;
 
     /* account */
 

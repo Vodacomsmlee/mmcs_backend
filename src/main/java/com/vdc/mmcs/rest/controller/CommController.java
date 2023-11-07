@@ -3,6 +3,7 @@ package com.vdc.mmcs.rest.controller;
 
 import com.vdc.mmcs.common.resolver.CommandMap;
 import com.vdc.mmcs.rest.service.CommService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +19,10 @@ import java.util.Map;
  */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
+@RequiredArgsConstructor
 public class CommController {
 
-    @Resource(name="commService")
-    private CommService commService;
+    private final CommService commService;
 
     //채널 모니터링 조회
     @RequestMapping(value="/monitoring/channel")
