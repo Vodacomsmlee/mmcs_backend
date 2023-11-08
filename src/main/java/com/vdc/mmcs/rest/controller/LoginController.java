@@ -3,6 +3,7 @@ package com.vdc.mmcs.rest.controller;
 import com.vdc.mmcs.common.resolver.CommandMap;
 import com.vdc.mmcs.configuration.WebSessionListener;
 import com.vdc.mmcs.rest.service.LoginService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,13 +18,11 @@ import java.util.Map;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
+@RequiredArgsConstructor
 public class LoginController {
 
-    @Resource(name = "loginService")
-    private LoginService loginService;
-
-    @Resource(name = "webSessionListener")
-    private WebSessionListener webSessionListener;
+    private final LoginService loginService;
+    private final WebSessionListener webSessionListener;
 
     @RequestMapping(value = "/login/proc")
     @ResponseBody

@@ -2,6 +2,7 @@ package com.vdc.mmcs.rest.controller;
 
 import com.vdc.mmcs.common.resolver.CommandMap;
 import com.vdc.mmcs.rest.service.HistService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,10 @@ import java.util.Map;
  */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
+@RequiredArgsConstructor
 public class HistController {
-    @Resource(name="histService")
-    private HistService histService;
+
+    private final HistService histService;
     // 회의실 녹취 이력 목록
     @RequestMapping(value="/hist/rec/list")
     @ResponseBody
@@ -85,4 +87,4 @@ public class HistController {
         Map.put("rows", ListMap);
         return Map;
     }
-    }
+}

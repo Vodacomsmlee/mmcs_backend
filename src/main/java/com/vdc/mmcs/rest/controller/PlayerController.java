@@ -4,6 +4,7 @@ import com.vdc.mmcs.common.resolver.CommandMap;
 import com.vdc.mmcs.common.util.CryptUtil;
 import com.vdc.mmcs.rest.service.ConfService;
 import com.vdc.mmcs.rest.service.PlayerService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +25,11 @@ import java.util.Map;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
+@RequiredArgsConstructor
 public class PlayerController {
-    @Resource(name = "playerService")
-    private PlayerService playerService;
 
-    @Resource(name = "confService")
-    private ConfService confService;
+    private final PlayerService playerService;
+    private final ConfService confService;
 
     String _CRYPT_KEY_ = "vdc7200qwert1234";
 
