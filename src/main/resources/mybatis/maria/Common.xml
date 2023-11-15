@@ -10,7 +10,7 @@
         call usp_montrn_conference_info_s(#{start_date}, #{end_date});
     </select>
     <select id="montrn_conference_total_cnt" parameterType="hashmap" resultType="hashmap">
-        call usp_montrn_channel_total_cnt_s(#{start_date}, #{end_date});
+        call usp_montrn_conference_total_cnt_s(#{start_date}, #{end_date});
     </select>
 
 
