@@ -18,8 +18,11 @@ public class CommServiceImpl implements CommService{
         return commDao.montrn_channel(map);
     }
     @Override
-    public List<Map<String, Object>> montrn_cconference_info(Map<String, Object> map) {
-        return commDao.montrn_cconference_info(map);
+    public List<Map<String, Object>> montrn_conference_info(Map<String, Object> map) {
+        return commDao.montrn_conference_info(map);
     }
-
+    @Override
+    public Map<String, Object> montrn_conference_total_cnt(Map<String, Object> map) {
+        return commDao.montrn_conference_total_cnt(map);
+    }
 }

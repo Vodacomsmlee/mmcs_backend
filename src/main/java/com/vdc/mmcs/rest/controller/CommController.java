@@ -31,16 +31,20 @@ public class CommController {
 
         List<Map<String, Object>> ListMap = commService.montrn_channel(commandMap.getMap());
         Map<String,Object> Map = new HashMap<>();
+
         Map.put("rows", ListMap);
 
         return Map;
     }
-    @RequestMapping(value="/monitoring/cconference")
+    @RequestMapping(value="/monitoring/conference")
     @ResponseBody
-    public Map<String, Object> montrn_cconference_info(CommandMap commandMap) throws Exception {
+    public Map<String, Object> montrn_conference_info(CommandMap commandMap) throws Exception {
 
-        List<Map<String, Object>> ListMap = commService.montrn_cconference_info(commandMap.getMap());
+        List<Map<String, Object>> ListMap = commService.montrn_conference_info(commandMap.getMap());
+        Map<String, Object> TotalCnt = commService.montrn_conference_total_cnt(commandMap.getMap());
         Map<String,Object> Map = new HashMap<>();
+
+        Map.put("total", TotalCnt.get("cnt"));
         Map.put("rows", ListMap);
 
         return Map;

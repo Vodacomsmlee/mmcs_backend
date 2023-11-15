@@ -17,10 +17,10 @@ public class CommDao extends AbstractDAO{
     public List<Map<String, Object>> montrn_channel(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "common.montrn_channel_list", map);
     }
-    public List<Map<String, Object>> montrn_cconference_info(Map<String, Object> map) {
+    public List<Map<String, Object>> montrn_conference_info(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "common.montrn_cconference_info", map);
     }
-
-
-
+    public Map<String, Object> montrn_conference_total_cnt(Map<String, Object> map) {
+        return (Map<String, Object>)selectOne(sqlSession, "common.montrn_conference_total_cnt", map);
+    }
 }
