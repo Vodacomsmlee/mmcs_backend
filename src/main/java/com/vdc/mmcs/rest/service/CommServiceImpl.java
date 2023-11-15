@@ -22,7 +22,7 @@ public class CommServiceImpl implements CommService{
         return commDao.montrn_conference_info(map);
     }
     @Override
-    public Map<String, Object> montrn_conference_total_cnt(Map<String, Object> map) {
-        return commDao.montrn_conference_total_cnt(map);
+    public List<Map<String, Object>> comm_conference_stt(Map<String, Object> map) {
+        return commDao.comm_conference_stt(map);
     }
 }

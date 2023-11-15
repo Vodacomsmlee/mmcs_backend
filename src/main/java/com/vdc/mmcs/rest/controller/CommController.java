@@ -41,16 +41,24 @@ public class CommController {
     public Map<String, Object> montrn_conference_info(CommandMap commandMap) throws Exception {
 
         List<Map<String, Object>> ListMap = commService.montrn_conference_info(commandMap.getMap());
-        Map<String, Object> TotalCnt = commService.montrn_conference_total_cnt(commandMap.getMap());
         Map<String,Object> Map = new HashMap<>();
 
-        Map.put("total", TotalCnt.get("cnt"));
         Map.put("rows", ListMap);
 
         return Map;
     }
 
+    @RequestMapping(value="/comm/conference/stt")
+    @ResponseBody
+    public Map<String, Object> comm_conference_stt(CommandMap commandMap) throws Exception {
 
+        List<Map<String, Object>> ListMap = commService.comm_conference_stt(commandMap.getMap());
+        Map<String,Object> Map = new HashMap<>();
+
+        Map.put("rows", ListMap);
+
+        return Map;
+    }
 
 
 }
