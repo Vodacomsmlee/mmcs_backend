@@ -107,7 +107,7 @@ public class Schedule {
                     logger.info("----- [ERROR] Freeswitch Send ERROR -----");
                     logger.info("----- CMD : "+ SendCmd +" -----");
                     logger.info("----- ERROR MSG : "+ SendRstMap.get("msg").toString() +" -----");
-                    }
+                }
 
                 Map<String,Object> updateParmMap = new HashMap<>();
                 updateParmMap.put("seq", ObjectMap.get("seq"));

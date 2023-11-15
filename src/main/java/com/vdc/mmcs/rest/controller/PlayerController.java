@@ -188,6 +188,7 @@ public class PlayerController {
                 //download history
                 Map<String, Object> histmap = new HashMap<>();
                 histmap.put("conference_uuid", commandMap.getMap().get("conference_uuid"));
+                histmap.put("_SESSION_USER_ID_", commandMap.getMap().get("_SESSION_USER_ID_"));
                 histmap.put("hist_type", 1);
                 confService.hist_rec_Add(histmap, request);
             }
