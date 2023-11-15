@@ -54,6 +54,7 @@ public class PlayerController {
                 // 청취 이력 Insert
                 Map<String, Object> rec_histMap = new HashMap<>();
                 rec_histMap.put("conference_uuid", infoMap.get("conference_uuid").toString());
+                rec_histMap.put("_SESSION_USER_ID_", session.getAttribute("user_id"));
                 rec_histMap.put("hist_type", 0); // 0 : 청취, 1 : 다운로드
                 confService.hist_rec_Add(rec_histMap, request);
             } else {
@@ -122,7 +123,7 @@ public class PlayerController {
 
     @RequestMapping("/rec/multi/player/info")
     @ResponseBody
-    public Map<String, Object> get_rec_base64(CommandMap commandMap, HttpServletRequest request) throws Exception {
+    public Map<String, Object> get_rec_base64(CommandMap commandMap, HttpServletRequest request, HttpSession session) throws Exception {
         Map<String,Object> Map = new HashMap<>();
         Map<String,Object> Result = new HashMap<>();
         Map<String, Object> infoMap = playerService.get_rec_base64(commandMap.getMap());
@@ -142,6 +143,7 @@ public class PlayerController {
                 // 청취 이력 Insert
                 Map<String, Object> rec_histMap = new HashMap<>();
                 rec_histMap.put("conference_uuid", infoMap.get("conference_uuid").toString());
+                rec_histMap.put("_SESSION_USER_ID_", session.getAttribute("user_id"));
                 rec_histMap.put("hist_type", 0); // 0 : 청취, 1 : 다운로드
                 confService.hist_rec_Add(rec_histMap, request);
             } else {
