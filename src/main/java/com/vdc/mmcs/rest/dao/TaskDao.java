@@ -25,7 +25,12 @@ public class TaskDao extends AbstractDAO{
         return (List<Map<String, Object>>)selectList(sqlSession, "task.conference_reserve_attendant", map);
     }
 
-    public int conference_reserve_next_dt(Map<String, Object> map) {
-        return (int) update(sqlSession, "task.conference_reserve_next_dt", map);
+    public void conference_reserve_next_dt(Map<String, Object> map) {
+        update(sqlSession, "task.conference_reserve_next_dt", map);
     }
+
+    public List<Map<String, Object>> getdeletefilepath() {
+        return (List<Map<String, Object>>)selectList(sqlSession, "task.getdeletefilepath");
+    }
+
 }

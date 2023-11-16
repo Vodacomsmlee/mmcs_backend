@@ -15,7 +15,9 @@
     <update id="conference_reserve_next_dt" parameterType="hashmap">
         call usp_task_conference_reserve_u(#{seq, jdbcType=INTEGER});
     </update>
-
+    <select id="getdeletefilepath" parameterType="hashmap" resultType="hashmap">
+        call usp_task_delete_filepath_s()
+    </select>
 
 
 </mapper>

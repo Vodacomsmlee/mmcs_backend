@@ -54,7 +54,7 @@ public class HttpClientConfig {
         try {
             builder.loadTrustMaterial(null, new TrustSelfSignedStrategy());
         } catch (NoSuchAlgorithmException | KeyStoreException e) {
-            LOGGER.error("Pooling Connection Manager Initialisation failure because of " + e.getMessage(), e);
+            LOGGER.error("Pooling Connection Manager Initi fail :  " + e.getMessage(), e);
         }
  
         HostnameVerifier allowAllHosts = new NoopHostnameVerifier();
@@ -63,7 +63,7 @@ public class HttpClientConfig {
         try {
             sslsf = new SSLConnectionSocketFactory(builder.build(),allowAllHosts);
         } catch (KeyManagementException | NoSuchAlgorithmException e) {
-            LOGGER.error("Pooling Connection Manager Initialisation failure because of " + e.getMessage(), e);
+            LOGGER.error("Pooling Connection Manager Initi fail : " + e.getMessage(), e);
         }
  
         Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder
@@ -112,7 +112,7 @@ public class HttpClientConfig {
     public Runnable idleConnectionMonitor(final PoolingHttpClientConnectionManager connectionManager) {
         return new Runnable() {
             @Override
-            @Scheduled(fixedDelay = 10000)
+            @Scheduled(fixedDelay = 10000) // 10 Sec
             public void run() {
                 try {
                     if (connectionManager != null) {
@@ -123,7 +123,7 @@ public class HttpClientConfig {
                         LOGGER.trace("run IdleConnectionMonitor - Http Client Connection manager is not initialised");
                     }
                 } catch (Exception e) {
-                    LOGGER.error("run IdleConnectionMonitor - Exception occurred. msg={}, e={}", e.getMessage(), e);
+                    LOGGER.error("run IdleConnectionMonitor - Exception occurred. msg={}", e.getMessage());
                 }
             }
         };

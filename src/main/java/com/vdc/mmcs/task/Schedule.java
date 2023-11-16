@@ -21,6 +21,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +45,9 @@ public class Schedule {
 
     @Value("${task.conference_cmd}")
     private String conference_cmd;
+
+    @Value("${task.record_file_delete}")
+    private boolean record_file_delete;
 
 
     @Resource(name="taskDao")
@@ -79,7 +86,7 @@ public class Schedule {
     }
 
     //예약건에 대해 참석자 호출
-    @Scheduled(cron = "0 0/10 * * * *", zone = "Asia/Seoul") // 매 10분마다 // cron = "0 0/10 * * * *"
+    @Scheduled(cron = "0 0/10 * * * *", zone = "Asia/Seoul") // 매 10분마다
     public void ConferenceReserve() {
 
         try {
@@ -155,6 +162,55 @@ public class Schedule {
         }
 
         return response_map;
+    }
+
+    // 녹취파일 삭제
+    @Scheduled(cron = "0 0 1 * * *", zone = "Asia/Seoul") // 매일 01시
+    public void RecFileDelete() {
+
+        if(record_file_delete) {
+            logger.info("----- Record File Delete Task START -----");
+            // 1. 삭제 조건으로 삭제 대상 조회
+            List<Map<String, Object>> pathsMap = taskDao.getdeletefilepath();
+
+            try {
+                int index = 1;
+                long file_cnt;
+
+                // 2. 파일 삭제 처리
+                for (Map<String, Object> ObjectMap : pathsMap) {
+                    Path filePath = Paths.get(ObjectMap.get("conference_record_path").toString());
+                    Files.deleteIfExists(filePath);
+
+                    // 3. DB 이력삭제
+
+                    // 4. 삭제 대상 폴더에 파일 없으면 해당 폴더 제거, 파일 없는지 체크로직 부하가 있음...
+                    if (index == pathsMap.size()) {
+                        file_cnt = folderFileCount(String.valueOf(filePath.getParent()));
+                        if (file_cnt == 0) Files.deleteIfExists(filePath.getParent());
+                    }
+                    index++;
+                }
+            } catch (Exception e) {
+                logger.info("----- [ERROR] Record File Delete Task -----");
+                logger.info("----- "+ e.getMessage() +" -----");
+                logger.info("----- [ERROR] Record File Delete Task -----");
+            }
+
+            logger.info("----- Record File Delete Task END -----");
+        }
+
+    }
+
+    // 폴더내 파일 갯수
+    public static long folderFileCount(String directory) {
+        long length = 0;
+        Path folder = Paths.get(directory);
+        try {
+            length = Files.walk(folder).filter(p -> p.toFile().isFile())
+                    .mapToLong(p -> 1).sum();
+        } catch (IOException ignored) {  }
+        return length;
     }
 
 }

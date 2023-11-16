@@ -18,7 +18,6 @@ public class PhoneDao extends AbstractDAO {
     public Map<String, Object> group_list(Map<String, Object> map) {
         return (Map<String, Object>)selectOne(sqlSession, "phone.group_list", map);
     }
-    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> group_info(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "phone.group_info", map);
     }
@@ -33,7 +32,6 @@ public class PhoneDao extends AbstractDAO {
     }
 
     /* phone */
-    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> phone_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "phone.phone_list", map);
     }
@@ -56,7 +54,6 @@ public class PhoneDao extends AbstractDAO {
         return (int) update(sqlSession, "phone.phone_del", map);
     }
 
-    @SuppressWarnings("unchecked")
     public List<Map<String, Object>> phone_group_list(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "phone.phone_group_list", map);
     }
