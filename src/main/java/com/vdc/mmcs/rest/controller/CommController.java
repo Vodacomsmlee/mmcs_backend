@@ -36,6 +36,7 @@ public class CommController {
 
         return Map;
     }
+
     @RequestMapping(value="/monitoring/conference")
     @ResponseBody
     public Map<String, Object> montrn_conference_info(CommandMap commandMap) throws Exception {
@@ -60,5 +61,64 @@ public class CommController {
         return Map;
     }
 
+    //설정
+    @RequestMapping(value="/config/list")
+    @ResponseBody
+    public Map<String, Object> config_list(CommandMap commandMap) throws Exception {
+
+        List<Map<String, Object>> ListMap = commService.config_list(commandMap.getMap());
+
+        Map<String,Object> Map = new HashMap<>();
+        Map.put("rows", ListMap);
+
+        return Map;
+    }
+    @RequestMapping(value="/config/add")
+    @ResponseBody
+    public Map<String, Object> config_add(CommandMap commandMap) {
+
+        Map<String,Object> Map = new HashMap<>();
+
+        try {
+            commService.config_add(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
+        return Map;
+    }
+    @RequestMapping(value="/config/edt")
+    @ResponseBody
+    public Map<String, Object> config_edt(CommandMap commandMap) {
+
+        Map<String,Object> Map = new HashMap<>();
+
+        try {
+            commService.config_edt(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
+
+        return Map;
+    }
+    @RequestMapping(value="/config/del")
+    @ResponseBody
+    public Map<String, Object> config_del(CommandMap commandMap) {
+
+        Map<String,Object> Map = new HashMap<>();
+
+        try {
+            commService.config_del(commandMap.getMap());
+            Map.put("success", true);
+        } catch (Exception e) {
+            Map.put("success", false);
+            Map.put("msg", e.getMessage());
+        }
+
+        return Map;
+    }
 
 }

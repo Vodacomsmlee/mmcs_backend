@@ -23,4 +23,19 @@ public class CommDao extends AbstractDAO{
     public List<Map<String, Object>> comm_conference_stt(Map<String, Object> map) {
         return (List<Map<String, Object>>)selectList(sqlSession, "common.comm_conference_stt", map);
     }
+
+
+    public List<Map<String, Object>> config_list(Map<String, Object> map) {
+        return (List<Map<String, Object>>)selectList(sqlSession, "common.config_list", map);
+    }
+    public int config_add(Map<String, Object> map) {
+        return (int) insert(sqlSession, "common.config_add", map);
+    }
+    public int config_edt(Map<String, Object> map) {
+        return (int) update(sqlSession, "common.config_edt", map);
+    }
+    public int config_del(Map<String, Object> map) {
+        return (int) update(sqlSession, "common.config_del", map);
+    }
+
 }

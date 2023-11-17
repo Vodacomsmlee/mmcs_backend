@@ -8,7 +8,6 @@ spring:
   datasource:
     hikari:
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-#      jdbc-url: jdbc:log4jdbc:mariadb://localhost:3306/mmcs?characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowMultiQueries=true
       jdbc-url: jdbc:log4jdbc:mariadb://192.168.102.115:3306/mmcs?characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowMultiQueries=true
       username: vdc
       password: vdc7200#
@@ -21,8 +20,6 @@ spring:
       enabled: true
   freemarker:
     cache: false
-  #main:
-  #  web-application-type: none
 
 ---
   #thymeleaf 사용
@@ -38,7 +35,6 @@ logging:
   config:
     level: INFO
     path: /opt/apache-tomcat-8.5.78/logs #/logs
-#    path: ./opt/tomcat/logs #/logs
     file: mmcs
     errfile: mmcs_err
 
@@ -49,4 +45,4 @@ task:
   freeswitch_request_url: http://192.168.102.115:8078/VDCFreeswitch/reqcmd.vdc
   conference_cmd: luarun mmcs_lua_conference_outboundcall.lua
   conference_person_cmd: luarun mmcs_lua_conference_auto_outboundrecall.lua
-  record_file_delete: true
+  record_file_delete: false

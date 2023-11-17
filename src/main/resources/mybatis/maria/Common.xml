@@ -12,4 +12,19 @@
     <select id="comm_conference_stt" parameterType="hashmap" resultType="hashmap">
         call usp_comm_conference_stt_s(#{start_date}, #{end_date});
     </select>
+
+
+    <select id="config_list" parameterType="hashmap" resultType="hashmap">
+        call usp_config_list_s();
+    </select>
+    <insert id="config_add" parameterType="hashmap">
+        call usp_config_i(#{key}, #{val}, #{_SESSION_USER_ID_});
+    </insert>
+    <update id="config_edt" parameterType="hashmap">
+        call usp_config_u(#{seq}, #{key}, #{val}, #{_SESSION_USER_ID_});
+    </update>
+    <update id="config_del" parameterType="hashmap">
+        call usp_config_d(#{seq}, #{_SESSION_USER_ID_});
+    </update>
+
 </mapper>
