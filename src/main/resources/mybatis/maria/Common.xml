@@ -27,4 +27,8 @@
         call usp_config_d(#{seq}, #{_SESSION_USER_ID_});
     </update>
 
+    <select id="get_rec_root_path" parameterType="hashmap" resultType="hashmap">
+        call usp_config_rec_root_path_s();
+    </select>
+
 </mapper>

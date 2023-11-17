@@ -13,4 +13,8 @@ public interface CommService {
     int config_add(Map<String, Object> map) throws Exception;
     int config_edt(Map<String, Object> map) throws Exception;
     int config_del(Map<String, Object> map) throws Exception;
+
+    // DISK 사용량을 위한 PATH 가져오기
+    Map<String, Object> get_rec_root_path(Map<String, Object> map) throws Exception;
+
 }

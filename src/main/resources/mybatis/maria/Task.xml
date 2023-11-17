@@ -16,7 +16,7 @@
         call usp_task_conference_reserve_u(#{seq, jdbcType=INTEGER});
     </update>
     <select id="getdeletefilepath" parameterType="hashmap" resultType="hashmap">
-        call usp_task_delete_filepath_s()
+        call usp_config_rec_delete_file_info_s()
     </select>
 
 

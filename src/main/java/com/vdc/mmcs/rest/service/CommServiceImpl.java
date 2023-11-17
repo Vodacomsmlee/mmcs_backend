@@ -42,4 +42,11 @@ public class CommServiceImpl implements CommService{
     public int config_del(Map<String, Object> map) {
         return commDao.config_del(map);
     }
+
+    // DISK 사용량을 위한 PATH 가져오기
+    @Override
+    public Map<String, Object> get_rec_root_path(Map<String, Object> map) {
+        return commDao.get_rec_root_path(map);
+    }
+
 }

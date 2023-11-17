@@ -38,4 +38,9 @@ public class CommDao extends AbstractDAO{
         return (int) update(sqlSession, "common.config_del", map);
     }
 
+    // DISK 사용량을 위한 PATH 가져오기
+    public Map<String, Object> get_rec_root_path(Map<String, Object> map) {
+        return (Map<String, Object>)selectOne(sqlSession, "common.get_rec_root_path", map);
+    }
+
 }
