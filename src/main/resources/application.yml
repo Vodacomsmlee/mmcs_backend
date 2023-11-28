@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8078
   servlet:
     context-path: /mmcs
 ---
@@ -8,7 +8,7 @@ spring:
   datasource:
     hikari:
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      jdbc-url: jdbc:log4jdbc:mariadb://192.168.102.115:3306/mmcs?characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowMultiQueries=true
+      jdbc-url: jdbc:log4jdbc:mariadb://localhost:3306/mmcs?characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowMultiQueries=true
       username: vdc
       password: vdc7200#
       max-lifetime: 580000
@@ -41,8 +41,8 @@ logging:
 ---
 #스케쥴 관련 : 체널 모니터링 URL, freeswitch 명령어
 task:
-  channel_url: http://192.168.102.115:8078/VDCFreeswitch/home_channels.vdc
-  freeswitch_request_url: http://192.168.102.115:8078/VDCFreeswitch/reqcmd.vdc
+  channel_url: http://localhost:8078/VDCFreeswitch/home_channels.vdc
+  freeswitch_request_url: http://localhost:8078/VDCFreeswitch/reqcmd.vdc
   conference_cmd: luarun mmcs_lua_conference_outboundcall.lua
   conference_person_cmd: luarun mmcs_lua_conference_auto_outboundrecall.lua
   record_file_delete: false

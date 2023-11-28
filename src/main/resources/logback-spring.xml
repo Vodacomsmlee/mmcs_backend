@@ -66,14 +66,14 @@
 
     <!-- root 레벨 설정   -->
     <root level="${LOG_LEVEL}">
-        <appender-ref ref="CONSOLE"/>
+<!--        <appender-ref ref="CONSOLE"/>-->
         <appender-ref ref="FILE"/>
         <appender-ref ref="ERROR"/>
     </root>
 
 
     <logger name="com.vdc.mmcs" level="DEBUG" additivity="false">
-        <appender-ref ref="CONSOLE"/>
+<!--        <appender-ref ref="CONSOLE"/>-->
         <appender-ref ref="FILE"/>
         <appender-ref ref="ERROR"/>
     </logger>
