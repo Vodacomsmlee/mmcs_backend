@@ -41,8 +41,8 @@ logging:
 ---
 #스케쥴 관련 : 체널 모니터링 URL, freeswitch 명령어
 task:
-  channel_url: http://localhost:8078/VDCFreeswitch/home_channels.vdc
-  freeswitch_request_url: http://localhost:8078/VDCFreeswitch/reqcmd.vdc
+  channel_url: https://localhost:8078/VDCFreeswitch/home_channels.vdc
+  freeswitch_request_url: https://localhost:8078/VDCFreeswitch/reqcmd.vdc
   conference_cmd: luarun mmcs_lua_conference_outboundcall.lua
   conference_person_cmd: luarun mmcs_lua_conference_auto_outboundrecall.lua
   record_file_delete: false
